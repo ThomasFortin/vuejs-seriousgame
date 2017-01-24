@@ -2,12 +2,37 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Jeux éducatifs</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="app"></div>
+    <header>
+        <h1>Jeux éducatifs</h1>
+    </header>
+    <main>
+        <div id="app"> 
+            <aside>
+                <h2>Modes de jeu</h2>
+                <nav id="main-nav">
+                    <ul>
+                        <li>    
+                            <router-link :to="{ name: 'home' }">Accueil</router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'learning' }">Apprentissage</router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'evaluation' }">Évaluation</router-link>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <router-view></router-view>
+        </div>
+    </main>
     
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="js/routing.js"></script>
 </body>
 </html>
