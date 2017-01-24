@@ -9,13 +9,22 @@
     <div id="app">
     	{{$data}}
 
+
+
     	<apprentice-part @event="verifyingResult"></apprentice-part>
 
     </div>
 
     <!--Templates-->
      <script id="apprenticePart" type="text/x-template">
+
 		 <div>
+		 <label>Table courante : </label>
+		 <input type="number" v-model="store.currentTable" name="currentTable"/>
+
+		 <!-- temp field-->
+		 <label>Numéro de la questio : </label>
+		  <input type="number" v-model="store.questionNumber" name="questionNumber"/>
 
 		 	<h1>Mode Apprentissage : Table de {{ store.currentTable }}</h1>
 
@@ -24,6 +33,12 @@
 		 		<ul>
 		 		<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
 		 		</ul>
+		 		<span>{{ store.succeed }}<br/></span>
+		 		<span v-if="store.succeed===true">Bonne réponse !!!! t'es un champion !</span>
+		 		<span v-if="store.succeed===false">Biiiiiiiiiippppppppppp perdu ! pauv'naze !</span>
+
+		 		
+		 		
 		 	</div>
 
 		 </div> 

@@ -10,25 +10,27 @@ var apprenticePart = {
 	template : `#apprenticePart`,
 	data : function(){
 		return { 
-			store : store,
-			
-			
+			store : store						
 		};
 	},
 
 	methods : {
-		verifyingResultTemplate : function(arguments){
+		goodOrBad : function(arguments){
 			var succeed = false;
 			var currentResult = store.operands[store.questionNumber] * store.currentTable
 			console.log("opération courante : "+ store.operands[store.questionNumber]+ " * "+ store.currentTable  +"\ncurrentResult = "+currentResult+" argument courant : "+ arguments[0])
 			if(currentResult==arguments[0]){
 				succeed = true;
 				console.log("Résultat de l'opération : "+succeed)
+
 			}
 			else{
 				succeed = false;
 				console.log("Résultat de l'opération : "+succeed)
 			}
+			console.log("succeed : "+succeed)
+			return succeed
+
 			
 		}
 	},
@@ -57,7 +59,8 @@ var store = {
 	table : [1,2,3,4,5,6,7,8,9,10],
 	currentTable : 5,
 	questionNumber : 0,
-	operands : [0,1,2,3,4,5,6,7,8,9,10]
+	operands : [0,1,2,3,4,5,6,7,8,9,10],
+	succeed : ""
 };
 
 Vue.component(`apprentice-part`, apprenticePart);
@@ -68,6 +71,7 @@ new Vue ({
 
 	el : `#app`,
 	data : store,
+		   
 
 	methods: {
 		// Random method to select 10 operations for one table
@@ -80,8 +84,14 @@ new Vue ({
 		},
 		verifyingResult : function(){
 			
-			apprenticePart.methods.verifyingResultTemplate(arguments)
-			console.log(arguments[0])
+			if(apprenticePart.methods.goodOrBad(arguments)){
+				store.succeed = true
+			}
+			else{
+				store.succeed=false
+			}
+
+			console.log(arguments[0]+"\n"+apprenticePart.methods.goodOrBad(arguments))			
 		}
 
 	}
