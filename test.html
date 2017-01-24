@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    
+</head>
+<body>
+    <div id="app">
+    	
+
+    	<apprentice-part></apprentice-part>
+
+    </div>
+
+    <!--Templates-->
+     <script id="apprenticePart" type="text/x-template">
+		 <div>
+
+		 	<h1>Mode Apprentissage : Table de {{ store.currentTable }}</h1>
+
+		 	<div id="formula">{{ currentOperand }} *  {{ store.currentTable }} = </div>
+		 	<div id="resultDisplay">
+		 		<ul>
+		 		<li v-for="result in possibleResults" @click.prevent="$emit(result)"> {{ result }}</li>
+		 		</ul>
+		 	</div>
+
+		 </div> 
+	</script>
+  <script src="js/libs/vue/dist/vue.js"></script>
+  <script src="js/libs/vue-resource/dist/vue-resource.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
