@@ -7,9 +7,9 @@
 </head>
 <body>
     <div id="app">
-    	
+    	{{$data}}
 
-    	<apprentice-part></apprentice-part>
+    	<apprentice-part @event="verifyingResult"></apprentice-part>
 
     </div>
 
@@ -22,7 +22,7 @@
 		 	<div id="formula">{{ currentOperand }} *  {{ store.currentTable }} = </div>
 		 	<div id="resultDisplay">
 		 		<ul>
-		 		<li v-for="result in possibleResults" @click.prevent="$emit(result)"> {{ result }}</li>
+		 		<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
 		 		</ul>
 		 	</div>
 
