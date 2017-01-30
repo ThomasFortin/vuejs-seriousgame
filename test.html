@@ -8,7 +8,12 @@
 <body>
     <div id="app">
     	{{$data}}
-
+    	<div id="selection-part">
+    	<h1 @click="randomTable">test</h1>
+     	 	<label>Sélection de la Table courante : </label>
+			 <input type="number" v-model="currentTable" name="currentTable" />
+			 <button @click="oneTableCalculate">Lancer le jeu !</button>
+     	</div>
 
 
     	<apprentice-part @event="verifyingResult"></apprentice-part>
@@ -17,31 +22,27 @@
 
     <!--Templates-->
      <script id="apprenticePart" type="text/x-template">
-
-		 <div>
-		 <label>Table courante : </label>
-		 <input type="number" v-model="store.currentTable" name="currentTable"/>
-
-		 <!-- temp field-->
-		 <label>Numéro de la questio : </label>
-		  <input type="number" v-model="store.questionNumber" name="questionNumber"/>
-
+     <div>
+		 <div id="apprentice-block" v-if="store.display">
+		  <span> Numéro de la question : {{ store.questionNumber }} </span>
 		 	<h1>Mode Apprentissage : Table de {{ store.currentTable }}</h1>
-
-		 	<div id="formula">{{ currentOperand }} *  {{ store.currentTable }} = </div>
+		 	<div id="formula">
+		 		{{ store.currentOperand }} *  {{ store.currentTable }} =
+		 	</div>
+		 	
 		 	<div id="resultDisplay">
 		 		<ul>
-		 		<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
+		 			<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
 		 		</ul>
 		 		<span>{{ store.succeed }}<br/></span>
 		 		<span v-if="store.succeed===true">Bonne réponse !!!! t'es un champion !</span>
 		 		<span v-if="store.succeed===false">Biiiiiiiiiippppppppppp perdu ! pauv'naze !</span>
-
-		 		
-		 		
 		 	</div>
 
-		 </div> 
+		</div> 
+		<div id="winner"><h1  v-if="store.win===true">Félicitation ! tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h1></div>
+
+	</div>
 	</script>
   <script src="js/libs/vue/dist/vue.js"></script>
   <script src="js/libs/vue-resource/dist/vue-resource.js"></script>
