@@ -62,19 +62,19 @@
      <div>
 		 <div id="apprentice-block" v-if="store.display">
 		  <span> Numéro de la question : {{ store.questionNumber }} </span>
-		 	<h1>Mode Apprentissage : Table de {{ store.currentTable }}</h1>
+		 	<h3>Allez, c'est parti pour.. la table de {{ store.currentTable }}</h3>
 		 	<div id="formula">
 		 		{{ store.currentOperand }} *  {{ store.currentTable }} =
 		 	</div>
 		 	
 		 	<div id="resultDisplay">
-		 		<ul>
+		 		<ul id="propositions">
 		 			<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
 		 		</ul>
-		 		<span>{{ store.succeed }}<br/></span>
 		 		<span>chrono : {{ store.chrono }} test : {{ displayIntermediateTime }}</span>
-		 		<span v-if="store.succeed===true">Bonne réponse !!!! t'es un champion !</span>
-		 		<span v-if="store.succeed===false">Biiiiiiiiiippppppppppp perdu ! pauv'naze !</span>
+                <br />
+		 		<span v-if="store.succeed===true">Bonne réponse !!!! T'es un champion !</span>
+		 		<span v-if="store.succeed===false">Biiipppppp perdu ! Pauv'naze !</span>
 		 	</div>
 
 		</div> 
