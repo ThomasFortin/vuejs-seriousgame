@@ -2,33 +2,42 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+}
+
+@font-face {
+    font-family: "Main Font";
+    src: url('../fonts/DK Butterfly Ball.otf');
 }
 
 html {
     background-color: #e9ecef;
+    font-family: "Main Font";
 }
 
 header {
     background: linear-gradient(175deg, #72C3FC 0%, #72C3FC 50%, #4DADF7 51%,#4DADF7 100%);
-    line-height: 100px;
-    height: 100px;
+    line-height: 120px;
+    height: 120px;
     box-shadow: 0 0 25px 0 #CCC;
     color: #FFF;
     text-align: center;
     border-bottom: 1px solid #FFF;
 }
 
-h1 {
-    text-transform: uppercase;
-}
-
 main {
     padding: 15px;
-    font-size: 18px;
+}
+
+body {
+    font-size: 26px;
+}
+
+body *::first-letter {
+    font-size: 1.5em;
 }
 
 h2 {
+    padding-bottom: 10px;
     border-bottom: 1px solid #CCC;
     color: #0099CC;
 }
@@ -57,6 +66,7 @@ a {
 
 #app > section {
     width: 75%;
+    text-align: center;
 }
 
 #app h2 {
@@ -71,6 +81,6 @@ a {
 
 #main-nav ul li {
     list-style: none;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 

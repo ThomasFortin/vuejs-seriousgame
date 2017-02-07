@@ -148,16 +148,28 @@ var store = {
 };
 
 //components
-Vue.component(`apprentice-part`, apprenticePart);
-Vue.component(`total-game`, totalGame);
+Vue.component('apprentice-part', apprenticePart);
+Vue.component('total-game', totalGame);
 
+// Routing file
 
-//vue instance
-var test = new Vue ({
-
-	el : `#app`,
-	data : store,
-		   
+var Home = { template: '#home-template' }
+var Learning = { 
+    template: '#apprentice-template',
+    data: function() {
+        return {
+            store: store
+        }
+    }
+}
+// Vue instance
+var apprentice = {
+    template: '#apprentice-template',
+	data : function() {
+        return {
+            store: store
+        }
+    },
 	methods: {
 
 		//initialize game
@@ -237,8 +249,19 @@ var test = new Vue ({
 
 		}
 	}
+};
+var Evaluation = { template: '#evaluation-template' }
+
+var router = new VueRouter({
+    routes: [
+        { path: '/', component: Home, name:'home' },
+        { path: '/apprentissage', component: apprentice, name:'learning' },
+        { path: '/evaluation', component: Evaluation, name:'evaluation' },
+    ]
+});
 
 
-
-
+new Vue({
+    el: '#app',
+    router: router
 });

@@ -31,8 +31,68 @@
         </div>
     </main>
     
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-    <script src="js/routing.js"></script>
+    <!--Templates-->
+    <script id="home-template" type="text/x-template">
+<section>
+    <h2>Accueil</h2>
+    <div>
+        <p>
+            Entraine-toi sur les tables de multiplication et deviens le meilleur !
+        </p>
+        <p>
+            0 1 2 3 4 5 6 7 8 9
+        </p>
+    </div>
+</section>
+    </script>
+     <script id="apprentice-template" type="text/x-template">
+<section>
+    <h2>Apprentissage</h2>
+    <div id="apprentice-module">
+    	<div id="selection-part">
+     	 	<label>Sélection de la Table courante : </label>
+			 <input type="number" v-model="store.currentTable" name="currentTable" />
+			 <button @click="initGame">Lancer le jeu !</button>
+     	</div>
+    	<apprentice-part @event="verifyingResult"></apprentice-part>
+    </div>
+</section>
+	</script>
+     <script id="apprenticePart" type="text/x-template">
+     <div>
+		 <div id="apprentice-block" v-if="store.display">
+		  <span> Numéro de la question : {{ store.questionNumber }} </span>
+		 	<h1>Mode Apprentissage : Table de {{ store.currentTable }}</h1>
+		 	<div id="formula">
+		 		{{ store.currentOperand }} *  {{ store.currentTable }} =
+		 	</div>
+		 	
+		 	<div id="resultDisplay">
+		 		<ul>
+		 			<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
+		 		</ul>
+		 		<span>{{ store.succeed }}<br/></span>
+		 		<span>chrono : {{ store.chrono }} test : {{ displayIntermediateTime }}</span>
+		 		<span v-if="store.succeed===true">Bonne réponse !!!! t'es un champion !</span>
+		 		<span v-if="store.succeed===false">Biiiiiiiiiippppppppppp perdu ! pauv'naze !</span>
+		 	</div>
+
+		</div> 
+		<div id="winner" v-if="store.win===true"><h1>Félicitation ! tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h1>
+		<h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2></div>
+
+	</div>
+	</script>
+    <script id="evaluation-template" type="text/x-template">
+<section>
+    <h2>Évaluation</h2>
+    <div>
+
+    </div>
+</section>
+    </script>
+    <script src="js/libs/vue/dist/vue.js"></script>
+    <script src="js/libs/vue-router/dist/vue-router.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
