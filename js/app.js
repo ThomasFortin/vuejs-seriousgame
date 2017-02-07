@@ -1,7 +1,7 @@
 /*___________________________________________________________
  |															 | 
  |    Serious Game Multiplication Tables for primary v0.1    |
- ___________________________________________________________*/
+ |__________________________________________________________*/
 
 
 
@@ -11,7 +11,8 @@ var apprenticePart = {
 	template : `#apprenticePart`,
 	data : function(){
 		return { 
-			store : store						
+			store : store,
+			displayIntermediateTime : 0,
 		};
 	},
 
@@ -19,7 +20,10 @@ var apprenticePart = {
 		goodOrBad : function(arguments){
 			var succeed = false
 			var currentResult = store.currentOperand * store.currentTable
+
 			console.log("opération courante : "+ store.currentOperand+ " * "+ store.currentTable  +"\ncurrentResult = "+currentResult+" argument courant : "+ arguments[0])
+			
+
 			if(currentResult==arguments[0]){
 				succeed = true
 				console.log("Résultat de l'opération : "+succeed)
@@ -32,15 +36,59 @@ var apprenticePart = {
 			console.log("succeed : "+succeed)
 			return succeed
 
-			
+		},
 
+	calculateTime : function(){
+						
+			var minutes = 0
+			var seconds = 0
+			var milliSeconds = 0
+			var timerID = 0
+			var self = this
+			var currentIntermediateTime = 0;
+
+			timerID = setInterval(function(){
+			var end = new Date()
+			currentIntermediateTime = end - store.start
+			currentIntermediateTime = new Date(currentIntermediateTime)
+			//store.intermediateTime.push(currentIntermediateTime) 
+			//console.log(store.intermediateTime)
+			minutes = currentIntermediateTime.getMinutes()
+			seconds = currentIntermediateTime.getSeconds()
+			milliSeconds = currentIntermediateTime.getMilliseconds()
+			
+			if(minutes<10){
+				minutes = 0 + minutes
+			}
+			if(seconds<10){
+				seconds = 0 + seconds
+			}
+			if(milliSeconds<10){
+				milliSeconds = 00 + milliSeconds
+			}
+			if(milliSeconds<100){
+				milliSeconds = 0 +milliSeconds
+			}
+			self.displayIntermediateTime = "temps intermédiaire : "+ minutes + ":" +seconds+":"+milliSeconds;
+				
+			}, 10)		
+				console.log("test variable ->"+self.displayIntermediateTime)
 		},
 
 	
 	setVisible : function(visible){
 			console.log("variable visible = "+visible);
 			store.display = visible;
-		}
+		},
+
+	
+
+	stats : function(){
+
+		store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / store.questionNumber * 100)
+		console.log("% good answer = "+ store.statsAnswer)
+		},
+
 
 	},
 
@@ -83,7 +131,17 @@ var store = {
 	operands : [0,1,2,3,4,5,6,7,8,9,10],
 	operandsArray : [],
 	succeed : "",
+	//stats values
 	trueAnswer : 0,
+	wrongAnswer : 0,
+	statsAnswer : 0,
+	//time values
+	globalTimeResult : 0,
+	startTime : 0,
+	start : new Date(),
+	intermediateTime : [],
+	chrono : null,
+
 	display : false,
 	win : false,
 
@@ -108,8 +166,13 @@ var test = new Vue ({
 			store.succeed = ""
 			store.win = false
 			store.trueAnswer = 0
+			store.wrongAnswer = 0
+			store.statsAnswer = 0
+			store.globalTimeResult = 0
+			store.startTime = 0
 			this.randomTable()
 			this.oneTableCalculate()
+			apprenticePart.methods.calculateTime()
 		},
 
 		// Random method to select 10 operations for one table
@@ -123,6 +186,7 @@ var test = new Vue ({
 					store.win=true
 					store.succeed=""
 					apprenticePart.methods.setVisible(false)
+					apprenticePart.methods.stats()
 			}
 
 			if(store.win==!true && store.trueAnswer<11){
@@ -146,6 +210,7 @@ var test = new Vue ({
 			}
 			else{
 				store.succeed=false
+				store.wrongAnswer++
 			}
 
 			console.log(arguments[0]+"\n"+apprenticePart.methods.goodOrBad(arguments))			

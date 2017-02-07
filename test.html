@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="app">
-    	{{$data}}
+    	{{$data}} 
     	<div id="selection-part">
     	<h1 @click="randomTable">test</h1>
      	 	<label>Sélection de la Table courante : </label>
@@ -35,12 +35,14 @@
 		 			<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
 		 		</ul>
 		 		<span>{{ store.succeed }}<br/></span>
+		 		<span>chrono : {{ store.chrono }} test : {{ displayIntermediateTime }}</span>
 		 		<span v-if="store.succeed===true">Bonne réponse !!!! t'es un champion !</span>
 		 		<span v-if="store.succeed===false">Biiiiiiiiiippppppppppp perdu ! pauv'naze !</span>
 		 	</div>
 
 		</div> 
-		<div id="winner"><h1  v-if="store.win===true">Félicitation ! tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h1></div>
+		<div id="winner" v-if="store.win===true"><h1>Félicitation ! tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h1>
+		<h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2></div>
 
 	</div>
 	</script>
