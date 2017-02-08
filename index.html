@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Jeux éducatifs</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 </head>
 <body>
     <header>
@@ -64,17 +65,18 @@
 		  <span> Numéro de la question : {{ store.questionNumber }} </span>
 		 	<h3>Allez, c'est parti pour.. la table de {{ store.currentTable }}</h3>
 		 	<div id="formula">
-		 		{{ store.currentOperand }} *  {{ store.currentTable }} =
+		 		{{ store.currentOperand }} *  {{ store.currentTable }} = ?
 		 	</div>
 		 	
 		 	<div id="resultDisplay">
 		 		<ul id="propositions">
 		 			<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
 		 		</ul>
-		 		<span>chrono : {{ store.chrono }} test : {{ displayIntermediateTime }}</span>
                 <br />
-		 		<span v-if="store.succeed===true">Bonne réponse !!!! T'es un champion !</span>
-		 		<span v-if="store.succeed===false">Biiipppppp perdu ! Pauv'naze !</span>
+                <span v-if="store.succeed===true" class="answer good"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Bonne réponse !!!! T'es un champion ! <i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                <span v-if="store.succeed===false" class="answer wrong"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Biiipppppp perdu ! Pauv'naze ! <i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+                <br />
+		 		<span>chrono : {{ store.chrono }} test : {{ displayIntermediateTime }}</span>
 		 	</div>
 
 		</div> 

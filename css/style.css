@@ -90,16 +90,32 @@ a {
 
 #propositions {
     margin: 20px 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
 }
 
 #propositions li {
     display: inline;
     border-radius: 15px;
-    margin: 3px;
-    padding: 15px;
+    margin: 10px 3px;
+    padding: 20px 0;
+    width: 15%;
     background-color: #0099CC;
     box-shadow: 0 0 25px 0 #CCC;
     color: #FFF;
     cursor: pointer;
     border: 2px solid #000;
+}
+
+.answer {
+    font-size: 2em;
+}
+
+.good {
+    color: #2f9e44;
+}
+
+.wrong {
+    color: #e03131;
 }
