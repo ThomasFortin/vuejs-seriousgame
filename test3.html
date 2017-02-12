@@ -10,23 +10,21 @@
     	{{$data}} 
     	<div id="selection-part">
     	<h1 @click="randomTable">test</h1>
-     	 	<label>Sélection de la Table courante : </label>
-			 <input type="number" v-model="currentTable" name="currentTable" />
-			 <button @click="initGameAM">Lancer le jeu !</button>
+     	 	<label>Total GAME : </label>
+			 <button @click="initGameTG">Lancer le jeu !</button>
      	</div>
 
 
-    	<apprentice-part @event="verifyingResult"></apprentice-part>
+    	<total-game @event="verifyingResult"></total-game>
 
     </div>
 
     <!--Templates-->
-     <script id="apprenticePart" type="text/x-template">
+     <script id="totalGame" type="text/x-template">
      <div>
-     
-		 <div id="apprentice-block" v-if="store.displayAM">
+		 <div id="totalGame-block" v-if="store.displayTG">
 		  <span> Numéro de la question : {{ store.questionNumber }} </span>
-		 	<h1>Mode Apprentissage : Table de {{ store.currentTable }}</h1>
+		 	<h1>Mode Evaluation : </h1>
 		 	<div id="formula">
 		 		{{ store.currentOperand }} *  {{ store.currentTable }} =
 		 	</div>

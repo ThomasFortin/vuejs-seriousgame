@@ -1,22 +1,252 @@
 /*___________________________________________________________
  |															 | 
- |    Serious Game Multiplication Tables for primary v0.1    |
+ |    Serious Game Multiplication Tables for primary v0.3    |
  |__________________________________________________________*/
 
 
-//Apprentice part
+/*----------------------
+ | Apprentice game part |
+  ---------------------*/
 var apprenticePart = {
 
 	template : `#apprenticePart`,
 	data : function(){
 		return { 
-			store : store,
-			timeTable : timeTable,
-			
+			store : store,			
 		};
 	},
 
 	methods : {
+		
+	setVisible : function(visible){
+			var self = this
+			console.log("variable visible = "+visible);
+			store.displayAM = visible;
+			console.log("Display : "+store.displayAM)
+		},
+
+
+	},
+
+	computed:{
+
+		possibleResults: function(){
+
+			var resultTable = []
+			for(var operand in store.operands){
+				resultTable.push(operand*store.currentTable)
+			}
+			console.log(resultTable)
+			return resultTable
+		}
+
+	}
+
+};
+/*------------------
+ | total game part |
+  -----------------*/
+var totalGame = {
+	template : `#totalGame`,
+	data : function(){
+		return { 
+			store : store,						
+		};
+	},
+
+	methods : {
+		
+	setVisible : function(visible){
+			var self = this
+			console.log("variable visible = "+visible);
+			store.displayTG = visible;
+			console.log("Display : "+store.displayAM)
+		},
+
+
+	},
+
+	computed:{
+
+		possibleResults: function(){
+
+			var resultTable = []
+			for(var operand in store.operands){
+				resultTable.push(operand*store.currentTable)
+			}
+			console.log(resultTable)
+			return resultTable
+		}
+
+	}
+
+};
+
+/*------------------
+ |   data store    |
+  -----------------*/
+var store = {
+				table : [0,1,2,3,4,5,6,7,8,9,10],
+				currentTable : "",
+				questionNumber : 1,
+				currentOperand : "",
+				operands : [0,1,2,3,4,5,6,7,8,9,10],
+				operandsArray : [],
+				tableArray : [],
+				succeed : "",
+				//stats values
+				trueAnswer : 0,
+				wrongAnswer : 0,
+				statsAnswer : 0,
+				goldStar : false,
+				silverStar : false,
+				bronzeStar : false,
+				timeTable : timeTable,
+				//time values
+				globalTimeResult :0,
+				displayGlobalTime : 0,
+				displayIntermediateTime : 0,
+				intermediateTime : 0,
+				chrono : null,
+				timerID : 0,
+				//game
+				typeGame :"",
+				displayAM : false,
+				displayTG : false,
+				win : false,
+			};
+
+/*------------------
+ |    components   |
+  -----------------*/
+Vue.component(`apprentice-part`, apprenticePart);
+Vue.component(`total-game`, totalGame);
+
+
+/*------------------
+ | Vue instance    |
+  -----------------*/
+var test = new Vue ({
+
+	el : `#app`,
+	data : store,
+		   
+	methods: {
+
+		//initialize game Apprentice module
+		initGameAM : function(){
+			store.questionNumber = 1
+			store.succeed = ""
+			store.win = false
+			store.trueAnswer = 0
+			store.wrongAnswer = 0
+			store.statsAnswer = 0
+			store.globalTimeResult = 0
+			store.intermediateTime = 0
+			store.timerID = 0
+			store.typeGame = 0
+			apprenticePart.methods.setVisible(true)
+			this.randomOperands()
+			this.oneTableCalculate()
+			this.calculateTime()
+		},
+
+		//initialize game Apprentice module
+		initGameTG : function(){
+			store.questionNumber = 1
+			store.succeed = ""
+			store.win = false
+			store.trueAnswer = 0
+			store.wrongAnswer = 0
+			store.statsAnswer = 0
+			store.globalTimeResult = 0
+			store.intermediateTime = 0
+			store.timerID = 0
+			store.typeGame = 1
+			totalGame.methods.setVisible(true)
+			this.randomOperands()
+			this.randomTable()
+			this.allTableCalculate()
+			this.calculateTime()
+		},
+
+		// Random method to select 10 operations for one table Apprentice part
+		oneTableCalculate : function(){
+			
+			console.log("Mode de jeu Apprentissage")
+			console.log("Table choisie : "+store.currentTable)
+
+			if(store.trueAnswer===11){
+					store.win=true
+					store.succeed=""
+					this.stopChrono()
+					apprenticePart.methods.setVisible(false)
+					this.stats()				
+			}
+
+			if(store.win==!true && store.trueAnswer<11){
+
+				//display template
+				apprenticePart.methods.setVisible(true)
+		
+				//random question
+				store.currentOperand = store.operandsArray[store.questionNumber-1]	
+				}
+		},
+		//global testing part
+		allTableCalculate : function(){
+
+			console.log("Mode de jeu Evaluation")
+			if(store.trueAnswer===11){
+					store.win=true
+					store.succeed=""
+					this.stopChrono()
+					totalGame.methods.setVisible(false)
+					this.stats()	
+			}
+
+			if(store.win==!true && store.trueAnswer<11){
+
+				//display template
+				totalGame.methods.setVisible(true)
+		
+				//random question
+				store.currentOperand = store.operandsArray[store.questionNumber-1]
+				store.currentTable = store.tableArray[store.questionNumber-1]	
+				}
+
+		},
+
+		//stop Chrono
+		stopChrono : function(){
+			clearInterval(store.timerID)
+		},
+
+		//counting results
+		verifyingResult : function(){
+			
+			if(this.goodOrBad(arguments)){
+				store.succeed = true;
+				store.questionNumber++;
+				store.trueAnswer++;	
+				if(store.typeGame===0){							
+					this.oneTableCalculate();
+				}
+				else if(store.typeGame===1){
+					this.allTableCalculate();
+				}
+
+				
+			}
+			else{
+				store.succeed=false
+				store.wrongAnswer++
+			}
+
+			console.log(arguments[0]+"\n"+this.goodOrBad(arguments))			
+		},
+
+		//checking results
 		goodOrBad : function(arguments){
 			var succeed = false
 			var currentResult = store.currentOperand * store.currentTable
@@ -38,7 +268,8 @@ var apprenticePart = {
 
 		},
 
-	calculateTime : function(){
+		//counting time
+		calculateTime : function(){
 						
 			var minutes = 0
 			var seconds = 0
@@ -79,14 +310,59 @@ var apprenticePart = {
 				
 		},
 
-	
-	setVisible : function(visible){
-			console.log("variable visible = "+visible);
-			store.display = visible;
+		//stats & rewards
+		stats : function(){
+		
+			store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / (store.questionNumber-1) * 100)
+			console.log("% good answer = "+ store.statsAnswer+ "\n gold condition : "+ store.timeTable[store.currentTable].gold+"\n silver condition : "+store.timeTable[store.currentTable].silver+"\n bronze condition : "+timeTable[store.currentTable].bronze )
+			this.globalTimeCalculate(store.intermediateTime)
+			var medal = false;
+			if(store.statsAnswer<0){
+				store.statsAnswer = 0;
+			}
+			if(store.typeGame===0){
+
+					if(store.globalTimeResult<=store.timeTable[store.currentTable].gold && store.statsAnswer==100){
+						store.goldStar = true;
+						medal = true;
+					}
+					else if(store.globalTimeResult<=store.timeTable[store.currentTable].silver && store.statsAnswer>=75){
+						store.silverStar = true;
+						medal = true;
+					}
+					else if(store.globalTimeResult<=store.timeTable[store.currentTable].bronze && store.statsAnswer>=50){
+						store.bronzeStar = true;
+						medal = true;
+					}
+					else{
+						medal = false;
+					}
+			}
+			else if(store.typeGame===1){
+
+				if(store.globalTimeResult<=store.timeTable[11].gold && store.statsAnswer==100){
+						store.goldStar = true;
+						medal = true;
+					}
+					else if(store.globalTimeResult<=store.timeTable[11].silver && store.statsAnswer>=75){
+						store.silverStar = true;
+						medal = true;
+					}
+					else if(store.globalTimeResult<=store.timeTable[11].bronze && store.statsAnswer>=50){
+						store.bronzeStar = true;
+						medal = true;
+					}
+					else{
+						medal = false;
+					}
+
+			}
+			console.log("Médaille : "+ medal)
+		
 		},
 
-
-	globalTimeCalculate : function(intermediateTime){
+		//evaluate reformat time for check global time
+		globalTimeCalculate : function(intermediateTime){
 
 			var minutes = 0
 			var seconds = 0
@@ -135,177 +411,8 @@ var apprenticePart = {
 
 		},
 
-	
-
-	stats : function(){
-
-		store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / store.questionNumber * 100)
-		this.globalTimeCalculate(store.intermediateTime)
-		var medal = false;
-
-		if(store.globalTimeResult<=timeTable[store.currentTable].gold && store.statsAnswer==100){
-			store.goldStar = true;
-			medal = true;
-		}
-		else if(store.globalTimeResult<=timeTable[store.currentTable].silver && store.statsAnswer>=75){
-			store.silverStar = true;
-			medal = true;
-		}
-		else if(store.globalTimeResult<=timeTable[store.currentTable].bronze && store.statsAnswer>=50){
-			store.bronzeStar = true;
-			medal = true;
-		}
-		else{
-			medal = false;
-		}
-		console.log("Médaille : "+ medal)
-		console.log("% good answer = "+ store.statsAnswer)
-		},
-
-
-	},
-
-	computed:{
-
-		/*currentOperand: function(){
-			return store.operands[store.questionNumber]
-		},*/
-
-		possibleResults: function(){
-
-			var resultTable = []
-			for(var operand in store.operands){
-				resultTable.push(operand*store.currentTable)
-			}
-			console.log(resultTable)
-			return resultTable
-		}
-
-	}
-
-};
-
-var totalGame = {
-	template : `#totalGame`,
-	data : function(){
-		return { 
-			store : store						
-		};
-	},
-
-};
-
-//datastore
-var store = {
-	table : [1,2,3,4,5,6,7,8,9,10],
-	currentTable : 5,
-	questionNumber : 1,
-	currentOperand : "",
-	operands : [0,1,2,3,4,5,6,7,8,9,10],
-	operandsArray : [],
-	succeed : "",
-	//stats values
-	trueAnswer : 0,
-	wrongAnswer : 0,
-	statsAnswer : 0,
-	goldStar : false,
-	silverStar : false,
-	bronzeStar : false,
-
-	//time values
-	globalTimeResult :0,
-	displayGlobalTime : 0,
-	displayIntermediateTime : 0,
-	intermediateTime : 0,
-	chrono : null,
-	timerID : 0,
-
-	display : false,
-	win : false,
-
-};
-
-//components
-Vue.component(`apprentice-part`, apprenticePart);
-Vue.component(`total-game`, totalGame);
-
-
-//vue instance
-var test = new Vue ({
-
-	el : `#app`,
-	data : store,
-		   
-	methods: {
-
-		//initialize game
-		initGame : function(){
-			store.questionNumber = 1
-			store.succeed = ""
-			store.win = false
-			store.trueAnswer = 0
-			store.wrongAnswer = 0
-			store.statsAnswer = 0
-			store.globalTimeResult = 0
-			store.intermediateTime = 0
-			store.timerID = 0
-			this.randomTable()
-			this.oneTableCalculate()
-			apprenticePart.methods.calculateTime()
-		},
-
-		// Random method to select 10 operations for one table
-		oneTableCalculate : function(){
-			var doneOperandsArray = [0]
-			var i = 0
-			var isInArray = true
-			console.log("Table choisie : "+store.currentTable)
-
-			if(store.trueAnswer===11){
-					store.win=true
-					store.succeed=""
-					this.stopChrono()
-					apprenticePart.methods.setVisible(false)
-					apprenticePart.methods.stats()
-					
-				
-			}
-
-			if(store.win==!true && store.trueAnswer<11){
-
-				//display template
-				apprenticePart.methods.setVisible(true)
-		
-				//random question
-				store.currentOperand = store.operandsArray[store.questionNumber-1]	
-				}
-		},
-
-		stopChrono : function(){
-			console.log("-------------------------------------------TOTO----------------------------")
-			clearInterval(store.timerID)
-		},
-
-
-		verifyingResult : function(){
-			
-			if(apprenticePart.methods.goodOrBad(arguments)){
-				store.succeed = true;
-				store.questionNumber++;
-				store.trueAnswer++;								
-				this.oneTableCalculate();
-
-				
-			}
-			else{
-				store.succeed=false
-				store.wrongAnswer++
-			}
-
-			console.log(arguments[0]+"\n"+apprenticePart.methods.goodOrBad(arguments))			
-		},
-
-		randomTable : function(){
+		//initiate operands for apprentice & evaluation game
+		randomOperands : function(){
 			//randomize question
 			store.operandsArray = store.operands
 
@@ -324,10 +431,29 @@ var test = new Vue ({
 			    store.operandsArray[randomIndex] = temporaryValue;
 			  }
 
+		},
+		//initiate tables for evaluation game
+		randomTable : function(){
+
+			//randomize tabme
+			store.tableArray = store.table
+			var currentIndex = store.tableArray.length, temporaryValue, randomIndex;
+
+			  // While there remain elements to shuffle...
+			  while (0 !== currentIndex) {
+
+			    // Pick a remaining element...
+			    randomIndex = Math.floor(Math.random() * currentIndex);
+			    currentIndex -= 1;
+
+			    // And swap it with the current element.
+			    temporaryValue = store.tableArray[currentIndex];
+			    store.tableArray[currentIndex] = store.tableArray[randomIndex];
+			    store.tableArray[randomIndex] = temporaryValue;
+			  }
+
 		}
 	}
-
-
 
 
 });
