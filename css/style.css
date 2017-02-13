@@ -95,6 +95,41 @@ a {
     justify-content: space-around;
 }
 
+/* HOME */
+
+.home-view {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+.learning-link {
+    border-right: 1px solid #CCC;
+}
+
+.home-view > * {
+    width: 49%;
+    display: flex;
+    flex-flow: column;
+}
+
+.home-view > * > p {
+    margin: 20px;
+    flex: 1;
+}
+
+.home-view a {
+    border: 1px solid #000;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #0099CC;
+    color: #FFF;
+    cursor: pointer;
+}
+
+/* GAMES */
+
 #propositions li {
     display: inline;
     border-radius: 15px;

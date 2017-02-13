@@ -36,13 +36,21 @@
     <script id="home-template" type="text/x-template">
 <section>
     <h2>Accueil</h2>
-    <div>
-        <p>
-            Entraine-toi sur les tables de multiplication et deviens le meilleur !
-        </p>
-        <p>
-            0 1 2 3 4 5 6 7 8 9
-        </p>
+    <div class="home-view">
+        <div class="learning-link">
+            <p>
+                Entraine-toi et deviens le meilleur !
+            </p>
+            <br />
+            <router-link :to="{ name: 'learning' }">Apprentissage</router-link>
+        </div>
+        <div class="evaluation-link">
+            <p>
+                Montre ce que tu sais faire, et évalue-toi !
+            </p>
+            <br />
+            <router-link :to="{ name: 'evaluation' }">Évaluation</router-link>
+        </div>
     </div>
 </section>
     </script>
@@ -53,7 +61,7 @@
     	<div id="selection-part">
      	 	<label>Sélection de la Table courante : </label>
 			 <input type="number" v-model="store.currentTable" name="currentTable" />
-			 <button @click="initGame">Lancer le jeu !</button>
+			 <button @click="initGameAM">Lancer le jeu !</button>
      	</div>
     	<apprentice-part @event="verifyingResult"></apprentice-part>
     </div>
@@ -61,27 +69,34 @@
 	</script>
      <script id="apprenticePart" type="text/x-template">
      <div>
-		 <div id="apprentice-block" v-if="store.display">
+     
+		 <div id="apprentice-block" v-if="store.displayAM">
 		  <span> Numéro de la question : {{ store.questionNumber }} </span>
-		 	<h3>Allez, c'est parti pour.. la table de {{ store.currentTable }}</h3>
+		 	<h1>Mode Apprentissage : Table de {{ store.currentTable }}</h1>
 		 	<div id="formula">
-		 		{{ store.currentOperand }} *  {{ store.currentTable }} = ?
+		 		{{ store.currentOperand }} *  {{ store.currentTable }} =
 		 	</div>
 		 	
 		 	<div id="resultDisplay">
 		 		<ul id="propositions">
 		 			<li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
 		 		</ul>
-                <br />
-                <span v-if="store.succeed===true" class="answer good"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Bonne réponse !!!! T'es un champion ! <i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-                <span v-if="store.succeed===false" class="answer wrong"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Biiipppppp perdu ! Pauv'naze ! <i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-                <br />
-		 		<span>chrono : {{ store.chrono }} test : {{ displayIntermediateTime }}</span>
+		 		<span>{{ store.succeed }}<br/></span>
+		 		<span> <br> Temps du chrono : {{ store.displayIntermediateTime }}</span>
+		 		<span v-if="store.succeed===true" class="answer good">Bonne réponse !!!! t'es un champion !</span>
+		 		<span v-if="store.succeed===false" class="answer wrong">Mauvaise réponse ! Essaie encore une fois !</span>
 		 	</div>
 
 		</div> 
-		<div id="winner" v-if="store.win===true"><h1>Félicitation ! tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h1>
-		<h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2></div>
+		<div id="winner" v-if="store.win===true"><h1>Félicitations ! tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h1>
+		<h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2>
+		<h3> voici ton temps : chrono global : {{ store.displayGlobalTime }} <br> temps global en seconde : {{ store.globalTimeResult }}</h3>
+			<div id="medal">
+				<img v-if="store.goldStar===true" src="images/goldStar.png"/>
+				<img v-if="store.silverStar===true" src="images/silverStar.png"/>
+				<img v-if="store.bronzeStar===true" src="images/bronzeStar.png"/>
+			</div>
+		</div>
 
 	</div>
 	</script>
@@ -95,6 +110,7 @@
     </script>
     <script src="js/libs/vue/dist/vue.js"></script>
     <script src="js/libs/vue-router/dist/vue-router.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/source.js"></script>
+    <script src="js/games.js"></script>
 </body>
 </html>
