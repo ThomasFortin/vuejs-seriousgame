@@ -107,15 +107,15 @@
     <div id="evaluation-module">
         <div id="selection-part">
             <span>Lance la partie dès que t'es prêt ! :)</span><br />
-            <button @click="initGameTG">Lancer le jeu !</button>
-            <total-game @event="verifyingResult"></total-game>
+            <button @click="initGameEvaluation">Lancer le jeu !</button>
+            <evaluation-part @event="verifyingResult"></evaluation-part>
         </div>
     </div>
 </section>
     </script>
-     <script id="totalGame" type="text/x-template">
+     <script id="evaluationPart" type="text/x-template">
 <div>
-    <div id="totalGame-block" v-if="store.displayTG">
+    <div id="evaluation-block" v-if="store.displayEvaluation">
         <span> Numéro de la question : {{ store.questionNumber }} </span>
         <h1>Mode Evaluation : </h1>
         <div id="formula">

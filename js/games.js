@@ -59,7 +59,7 @@ var totalGame = {
 	setVisible : function(visible){
 			var self = this
 			console.log("variable visible = "+visible);
-			store.displayTG = visible;
+			store.displayEvaluation = visible;
 			console.log("Display : "+store.displayLearning)
 		},
 
@@ -86,76 +86,47 @@ var totalGame = {
  |   data store    |
   -----------------*/
 var store = {
-				table : [0,1,2,3,4,5,6,7,8,9,10],
-				currentTable : "",
-				questionNumber : 1,
-				currentOperand : "",
-				operands : [0,1,2,3,4,5,6,7,8,9,10],
-				operandsArray : [],
-				tableArray : [],
-				succeed : "",
-				//stats values
-				trueAnswer : 0,
-				wrongAnswer : 0,
-				statsAnswer : 0,
-				goldStar : false,
-				silverStar : false,
-				bronzeStar : false,
-				timeTable : timeTable,
-				//time values
-				globalTimeResult :0,
-				displayGlobalTime : 0,
-				displayIntermediateTime : 0,
-				intermediateTime : 0,
-				chrono : null,
-				timerID : 0,
-				//game
-				typeGame :"",
-				displayLearning : false,
-				displayTG : false,
-				win : false,
-			};
+    table : [0,1,2,3,4,5,6,7,8,9,10],
+    currentTable : "",
+    questionNumber : 1,
+    currentOperand : "",
+    operands : [0,1,2,3,4,5,6,7,8,9,10],
+    operandsArray : [],
+    tableArray : [],
+    succeed : "",
+    //stats values
+    trueAnswer : 0,
+    wrongAnswer : 0,
+    statsAnswer : 0,
+    goldStar : false,
+    silverStar : false,
+    bronzeStar : false,
+    timeTable : timeTable,
+    //time values
+    globalTimeResult :0,
+    displayGlobalTime : 0,
+    displayIntermediateTime : 0,
+    intermediateTime : 0,
+    chrono : null,
+    timerID : 0,
+    //game
+    typeGame :"",
+    displayLearning : false,
+    displayEvaluation : false,
+    win : false,
+};
 
 /*------------------
  |    components   |
   -----------------*/
 Vue.component(`apprentice-part`, apprenticePart);
-Vue.component(`total-game`, totalGame);
+Vue.component(`evaluation-part`, evaluationPart);
 
 /*------------------
  |   Routing file  |
   -----------------*/
 
 var Home = { template: `#home-template` }
-
-var Evaluation = ({
-    template: `#evaluation-template`,
-    data: function() {
-        return {
-            store: store
-        }
-    },
-    methods: {
-		// Initialize an evaluation game mode
-		initGameEvaluation : function(){
-			store.questionNumber = 1
-			store.succeed = ""
-			store.win = false
-			store.trueAnswer = 0
-			store.wrongAnswer = 0
-			store.statsAnswer = 0
-			store.globalTimeResult = 0
-			store.intermediateTime = 0
-			store.timerID = 0
-			store.typeGame = 1
-			totalGame.methods.setVisible(true)
-			this.randomOperands()
-			this.randomTable()
-			this.allTableCalculate()
-			this.calculateTime()
-		}
-    }
-});
 
 var Learning = ({
     template: `#apprentice-template`,
@@ -205,29 +176,6 @@ var Learning = ({
 				//random question
 				store.currentOperand = store.operandsArray[store.questionNumber-1]	
 				}
-		},
-		//global testing part
-		allTableCalculate : function(){
-
-			console.log("Mode de jeu Evaluation")
-			if(store.trueAnswer===11){
-					store.win=true
-					store.succeed=""
-					this.stopChrono()
-					totalGame.methods.setVisible(false)
-					this.stats()	
-			}
-
-			if(store.win==!true && store.trueAnswer<11){
-
-				//display template
-				totalGame.methods.setVisible(true)
-		
-				//random question
-				store.currentOperand = store.operandsArray[store.questionNumber-1]
-				store.currentTable = store.tableArray[store.questionNumber-1]	
-				}
-
 		},
 
 		//stop Chrono
@@ -445,30 +393,80 @@ var Learning = ({
 			  }
 
 		},
-		//initiate tables for evaluation game
-		randomTable : function(){
-
-			//randomize tabme
-			store.tableArray = store.table
-			var currentIndex = store.tableArray.length, temporaryValue, randomIndex;
-
-			  // While there remain elements to shuffle...
-			  while (0 !== currentIndex) {
-
-			    // Pick a remaining element...
-			    randomIndex = Math.floor(Math.random() * currentIndex);
-			    currentIndex -= 1;
-
-			    // And swap it with the current element.
-			    temporaryValue = store.tableArray[currentIndex];
-			    store.tableArray[currentIndex] = store.tableArray[randomIndex];
-			    store.tableArray[randomIndex] = temporaryValue;
-			  }
-
-		}
 	}
 });
 
+var Evaluation = ({
+    template: `#evaluation-template`,
+    data: function() {
+        return {
+            store: store
+        }
+    },
+    methods: {
+		// Initialize the evaluation mode game
+		initGameEvaluation : function(){
+			store.questionNumber = 1
+			store.succeed = ""
+			store.win = false
+			store.trueAnswer = 0
+			store.wrongAnswer = 0
+			store.statsAnswer = 0
+			store.globalTimeResult = 0
+			store.intermediateTime = 0
+			store.timerID = 0
+			store.typeGame = 1
+			totalGame.methods.setVisible(true)
+			this.randomOperands()
+			this.randomTable()
+			this.allTableCalculate()
+			this.calculateTime()
+		},
+		// Global table calculation
+		allTableCalculate : function(){
+
+			console.log("Mode de jeu Evaluation")
+			if(store.trueAnswer===11){
+					store.win=true
+					store.succeed=""
+					this.stopChrono()
+					totalGame.methods.setVisible(false)
+					this.stats()	
+			}
+
+			if(store.win==!true && store.trueAnswer<11){
+
+				// Display the template
+				totalGame.methods.setVisible(true)
+		
+				// Asks a random question
+				store.currentOperand = store.operandsArray[store.questionNumber-1]
+				store.currentTable = store.tableArray[store.questionNumber-1]	
+			}
+
+		},
+		// Initialize tables for the evaluation mode game
+		randomTable : function(){
+			// Randomize the tables
+			store.tableArray = store.table
+			var currentIndex = store.tableArray.length, temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = store.tableArray[currentIndex];
+                store.tableArray[currentIndex] = store.tableArray[randomIndex];
+                store.tableArray[randomIndex] = temporaryValue;
+            }
+		}
+    }
+});
+
+// Creation of the router
 var router = new VueRouter({
     routes: [
         { path: '/', component: Home, name:'home' },
@@ -477,7 +475,7 @@ var router = new VueRouter({
     ]
 });
 
-
+// Vue Instance
 new Vue({
     el: '#app',
     router: router
