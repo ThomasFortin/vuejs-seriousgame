@@ -10,7 +10,7 @@ var Learning = ({
 		initGameLearning : function(){
 			store.questionNumber = 1
 			store.succeed = ""
-			store.win = false
+			store.apprenticeWin = false
 			store.trueAnswer = 0
 			store.wrongAnswer = 0
 			store.statsAnswer = 0
@@ -29,14 +29,14 @@ var Learning = ({
 			console.log("Table choisie : "+store.currentTable)
 
 			if(store.trueAnswer===11){
-					store.win=true
+					store.apprenticeWin=true
 					store.succeed=""
 					this.stopChrono()
 					apprenticePart.methods.setVisible(false)
 					this.stats()				
 			}
 
-			if(store.win==!true && store.trueAnswer<11){
+			if(store.apprenticeWin==!true && store.trueAnswer<11){
 				// Display template
 				apprenticePart.methods.setVisible(true)
 		
@@ -53,13 +53,8 @@ var Learning = ({
 			if(this.goodOrBad(arguments)){
 				store.succeed = true;
 				store.questionNumber++;
-				store.trueAnswer++;	
-				if(store.typeGame===0){							
-					this.oneTableCalculate();
-				}
-				else if(store.typeGame===1){
-					this.allTableCalculate();
-				}
+				store.trueAnswer++;
+				this.oneTableCalculate();
 			}
 			else{
 				store.succeed=false

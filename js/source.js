@@ -94,6 +94,7 @@ var store = {
     typeGame :"",
     displayLearning : false,
     displayEvaluation : false,
-    win : false,
+    apprenticeWin : false,
+    evaluationWin : false,
 };
 

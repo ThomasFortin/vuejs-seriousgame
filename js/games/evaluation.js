@@ -10,7 +10,7 @@ var Evaluation = ({
 		initGameEvaluation : function(){
 			store.questionNumber = 1
 			store.succeed = ""
-			store.win = false
+			store.evaluationWin = false
 			store.trueAnswer = 0
 			store.wrongAnswer = 0
 			store.statsAnswer = 0
@@ -29,15 +29,14 @@ var Evaluation = ({
 
 			console.log("Mode de jeu Evaluation")
 			if(store.trueAnswer===11){
-                store.win=true
+                store.evaluationWin=true
                 store.succeed=""
                 this.stopChrono()
                 evaluationPart.methods.setVisible(false)
                 this.stats()	
 			}
 
-			if(store.win==!true && store.trueAnswer<11){
-
+			if(store.evaluationWin==!true && store.trueAnswer<11){
 				// Display the template
 				evaluationPart.methods.setVisible(true)
 		
@@ -57,12 +56,7 @@ var Evaluation = ({
 				store.succeed = true;
 				store.questionNumber++;
 				store.trueAnswer++;	
-				if(store.typeGame===0){							
-					this.oneTableCalculate();
-				}
-				else if(store.typeGame===1){
-					this.allTableCalculate();
-				}
+				this.allTableCalculate();
 			}
 			else{
 				store.succeed=false
@@ -279,7 +273,7 @@ var evaluationPart = {
             var self = this
             console.log("variable visible = "+visible);
             store.displayEvaluation = visible;
-            console.log("Display : "+store.displayLearning)
+            console.log("Display : "+store.displayEvaluation)
 		},
 	},
 	computed:{
