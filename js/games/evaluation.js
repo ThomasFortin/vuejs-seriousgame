@@ -17,7 +17,6 @@ var Evaluation = ({
 			store.globalTimeResult = 0
 			store.intermediateTime = 0
 			store.timerID = 0
-			store.typeGame = 1
 			evaluationPart.methods.setVisible(true)
 			this.randomOperands()
 			this.randomTable()
@@ -28,7 +27,7 @@ var Evaluation = ({
 		allTableCalculate : function(){
 
 			console.log("Mode de jeu Evaluation")
-			if(store.trueAnswer===11){
+			if(store.trueAnswer===10){
                 store.evaluationWin=true
                 store.succeed=""
                 this.stopChrono()
@@ -36,7 +35,7 @@ var Evaluation = ({
                 this.stats()	
 			}
 
-			if(store.evaluationWin==!true && store.trueAnswer<11){
+			if(store.evaluationWin==!true && store.trueAnswer<10){
 				// Display the template
 				evaluationPart.methods.setVisible(true)
 		
@@ -130,42 +129,21 @@ var Evaluation = ({
 			if(store.statsAnswer<0){
 				store.statsAnswer = 0;
 			}
-			if(store.typeGame===0){
-			    if(store.globalTimeResult<=store.timeTable[store.currentTable].gold && store.statsAnswer==100){
+            if(store.globalTimeResult<=store.timeTable[10].gold && store.statsAnswer==100){
                     store.goldStar = true;
                     medal = true;
                 }
-                else if(store.globalTimeResult<=store.timeTable[store.currentTable].silver && store.statsAnswer>=75){
+                else if(store.globalTimeResult<=store.timeTable[10].silver && store.statsAnswer>=75){
                     store.silverStar = true;
                     medal = true;
                 }
-                else if(store.globalTimeResult<=store.timeTable[store.currentTable].bronze && store.statsAnswer>=50){
+                else if(store.globalTimeResult<=store.timeTable[10].bronze && store.statsAnswer>=50){
                     store.bronzeStar = true;
                     medal = true;
                 }
                 else{
                     medal = false;
                 }
-			}
-			else if(store.typeGame===1){
-
-				if(store.globalTimeResult<=store.timeTable[11].gold && store.statsAnswer==100){
-						store.goldStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[11].silver && store.statsAnswer>=75){
-						store.silverStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[11].bronze && store.statsAnswer>=50){
-						store.bronzeStar = true;
-						medal = true;
-					}
-					else{
-						medal = false;
-					}
-
-			}
 			console.log("Médaille : "+ medal)
 		},
 		// Evaluate reformat time for check global time
@@ -279,10 +257,9 @@ var evaluationPart = {
 	computed:{
 		possibleResults: function(){
 			var resultTable = []
-			for(var operand in store.operands){
-				resultTable.push(operand*store.currentTable)
-			}
-			console.log(resultTable)
+			store.operands.forEach(function(operand) {
+				resultTable.push(operand * store.currentTable)
+			});
 			return resultTable
 		}
 	}

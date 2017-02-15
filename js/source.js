@@ -91,7 +91,6 @@ var store = {
     chrono : null,
     timerID : 0,
     //Game
-    typeGame :"",
     displayLearning : false,
     displayEvaluation : false,
     apprenticeWin : false,

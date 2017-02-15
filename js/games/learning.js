@@ -17,7 +17,6 @@ var Learning = ({
 			store.globalTimeResult = 0
 			store.intermediateTime = 0
 			store.timerID = 0
-			store.typeGame = 0
 			apprenticePart.methods.setVisible(true)
 			this.randomOperands()
 			this.oneTableCalculate()
@@ -130,42 +129,22 @@ var Learning = ({
 			if(store.statsAnswer<0){
 				store.statsAnswer = 0;
 			}
-			if(store.typeGame===0){
 
-					if(store.globalTimeResult<=store.timeTable[store.currentTable].gold && store.statsAnswer==100){
-						store.goldStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[store.currentTable].silver && store.statsAnswer>=75){
-						store.silverStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[store.currentTable].bronze && store.statsAnswer>=50){
-						store.bronzeStar = true;
-						medal = true;
-					}
-					else{
-						medal = false;
-					}
-			}
-			else if(store.typeGame===1){
-
-				if(store.globalTimeResult<=store.timeTable[10].gold && store.statsAnswer==100){
-						store.goldStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[10].silver && store.statsAnswer>=75){
-						store.silverStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[10].bronze && store.statsAnswer>=50){
-						store.bronzeStar = true;
-						medal = true;
-					}
-					else{
-						medal = false;
-					}
-			}
+            if(store.globalTimeResult<=store.timeTable[store.currentTable].gold && store.statsAnswer==100){
+                store.goldStar = true;
+                medal = true;
+            }
+            else if(store.globalTimeResult<=store.timeTable[store.currentTable].silver && store.statsAnswer>=75){
+                store.silverStar = true;
+                medal = true;
+            }
+            else if(store.globalTimeResult<=store.timeTable[store.currentTable].bronze && store.statsAnswer>=50){
+                store.bronzeStar = true;
+                medal = true;
+            }
+            else{
+                medal = false;
+            }
 			console.log("Médaille : "+ medal)
 		},
 		// Evaluate reformat time for check global time
