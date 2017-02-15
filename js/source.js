@@ -67,11 +67,11 @@ var timeTable = [
  |   Data store    |
   -----------------*/
 var store = {
-    table : [0,1,2,3,4,5,6,7,8,9,10],
+    table : [1,2,3,4,5,6,7,8,9,10],
     currentTable : "",
     questionNumber : 1,
     currentOperand : "",
-    operands : [0,1,2,3,4,5,6,7,8,9,10],
+    operands : [1,2,3,4,5,6,7,8,9,10],
     operandsArray : [],
     tableArray : [],
     succeed : "",

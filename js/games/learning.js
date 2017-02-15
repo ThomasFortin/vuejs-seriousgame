@@ -28,7 +28,7 @@ var Learning = ({
 			console.log("Mode de jeu Apprentissage")
 			console.log("Table choisie : "+store.currentTable)
 
-			if(store.trueAnswer===11){
+			if(store.trueAnswer===10){
 					store.apprenticeWin=true
 					store.succeed=""
 					this.stopChrono()
@@ -36,12 +36,12 @@ var Learning = ({
 					this.stats()				
 			}
 
-			if(store.apprenticeWin==!true && store.trueAnswer<11){
+			if(store.apprenticeWin==!true && store.trueAnswer<10){
 				// Display template
 				apprenticePart.methods.setVisible(true)
 		
 				// Asks a random question
-				store.currentOperand = store.operandsArray[store.questionNumber-1]	
+				store.currentOperand = store.operandsArray[store.questionNumber-1]
 			}
         },
 		// Stop the chrono
@@ -150,15 +150,15 @@ var Learning = ({
 			}
 			else if(store.typeGame===1){
 
-				if(store.globalTimeResult<=store.timeTable[11].gold && store.statsAnswer==100){
+				if(store.globalTimeResult<=store.timeTable[10].gold && store.statsAnswer==100){
 						store.goldStar = true;
 						medal = true;
 					}
-					else if(store.globalTimeResult<=store.timeTable[11].silver && store.statsAnswer>=75){
+					else if(store.globalTimeResult<=store.timeTable[10].silver && store.statsAnswer>=75){
 						store.silverStar = true;
 						medal = true;
 					}
-					else if(store.globalTimeResult<=store.timeTable[11].bronze && store.statsAnswer>=50){
+					else if(store.globalTimeResult<=store.timeTable[10].bronze && store.statsAnswer>=50){
 						store.bronzeStar = true;
 						medal = true;
 					}
@@ -260,10 +260,9 @@ var apprenticePart = {
 	computed:{
 		possibleResults: function(){
 			var resultTable = []
-			for(var operand in store.operands){
-				resultTable.push(operand*store.currentTable)
-			}
-			console.log(resultTable)
+			store.operands.forEach(function(operand) {
+				resultTable.push(operand * store.currentTable)
+			});
 			return resultTable
 		}
 	}
