@@ -1,9 +1,12 @@
-// Routing file
+/*------------------
+ |   Routing file  |
+  -----------------*/
 
-var Home = { template: "<section><h2>Accueil</h2></section>" }
-var Learning = { template: '<section><h2>Apprentissage</h2></section>' }
-var Evaluation = { template: '<section><h2>Évaluation</h2></section>' }
+// Components
+Vue.component(`apprentice-part`, apprenticePart);
+Vue.component(`evaluation-part`, evaluationPart);
 
+// Creation of the router
 var router = new VueRouter({
     routes: [
         { path: '/', component: Home, name:'home' },
@@ -12,7 +15,10 @@ var router = new VueRouter({
     ]
 });
 
-var application = new Vue({
+// Vue Instance
+new Vue({
     el: '#app',
-    router: router
-})
+    router: router,
+    data: store
+});
+
