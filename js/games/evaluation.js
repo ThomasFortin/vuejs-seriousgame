@@ -29,11 +29,11 @@ var Evaluation = ({
 
 			console.log("Mode de jeu Evaluation")
 			if(store.trueAnswer===11){
-					store.win=true
-					store.succeed=""
-					this.stopChrono()
-					evaluationPart.methods.setVisible(false)
-					this.stats()	
+                store.win=true
+                store.succeed=""
+                this.stopChrono()
+                evaluationPart.methods.setVisible(false)
+                this.stats()	
 			}
 
 			if(store.win==!true && store.trueAnswer<11){
@@ -47,12 +47,11 @@ var Evaluation = ({
 			}
 
 		},
-		//stop Chrono
+		//Stop the chrono
 		stopChrono : function(){
 			clearInterval(store.timerID)
 		},
-
-		//counting results
+		// Counting the results
 		verifyingResult : function(){	
 			if(this.goodOrBad(arguments)){
 				store.succeed = true;
@@ -71,15 +70,13 @@ var Evaluation = ({
 			}
 			console.log(arguments[0]+"\n"+this.goodOrBad(arguments))			
 		},
-
-		//checking results
+		// Checking the number of good and bad answers
 		goodOrBad : function(arguments){
 			var succeed = false
 			var currentResult = store.currentOperand * store.currentTable
 
 			console.log("opération courante : "+ store.currentOperand+ " * "+ store.currentTable  +"\ncurrentResult = "+currentResult+" argument courant : "+ arguments[0])
 			
-
 			if(currentResult==arguments[0]){
 				succeed = true
 				console.log("Résultat de l'opération : "+succeed)
@@ -93,9 +90,8 @@ var Evaluation = ({
 			return succeed
 		},
 
-		//counting time
+		// Calculate the time to do the exercise
 		calculateTime : function(){
-						
 			var minutes = 0
 			var seconds = 0
 			var milliSeconds = 0
@@ -108,7 +104,6 @@ var Evaluation = ({
 			var end = new Date()
 			currentIntermediateTime = end - start
 			currentIntermediateTime = new Date(currentIntermediateTime)
-
 			
 			minutes = currentIntermediateTime.getMinutes()
 			seconds = currentIntermediateTime.getSeconds()
@@ -126,18 +121,14 @@ var Evaluation = ({
 			if(milliSeconds<100){
 				milliSeconds = 0 +milliSeconds
 			}
-
 			store.displayIntermediateTime = minutes + ":" + seconds +":"+ milliSeconds;
 			store.intermediateTime = currentIntermediateTime;
 			console.log("Display intermediateTime ->"+store.displayIntermediateTime)
 				
 			}, 10)		
-				
 		},
-
-		//stats & rewards
+		// Stats & rewards
 		stats : function(){
-		
 			store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / (store.questionNumber-1) * 100)
 			console.log("% good answer = "+ store.statsAnswer+ "\n gold condition : "+ store.timeTable[store.currentTable].gold+"\n silver condition : "+store.timeTable[store.currentTable].silver+"\n bronze condition : "+timeTable[store.currentTable].bronze )
 			this.globalTimeCalculate(store.intermediateTime)
@@ -146,22 +137,21 @@ var Evaluation = ({
 				store.statsAnswer = 0;
 			}
 			if(store.typeGame===0){
-
-					if(store.globalTimeResult<=store.timeTable[store.currentTable].gold && store.statsAnswer==100){
-						store.goldStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[store.currentTable].silver && store.statsAnswer>=75){
-						store.silverStar = true;
-						medal = true;
-					}
-					else if(store.globalTimeResult<=store.timeTable[store.currentTable].bronze && store.statsAnswer>=50){
-						store.bronzeStar = true;
-						medal = true;
-					}
-					else{
-						medal = false;
-					}
+			    if(store.globalTimeResult<=store.timeTable[store.currentTable].gold && store.statsAnswer==100){
+                    store.goldStar = true;
+                    medal = true;
+                }
+                else if(store.globalTimeResult<=store.timeTable[store.currentTable].silver && store.statsAnswer>=75){
+                    store.silverStar = true;
+                    medal = true;
+                }
+                else if(store.globalTimeResult<=store.timeTable[store.currentTable].bronze && store.statsAnswer>=50){
+                    store.bronzeStar = true;
+                    medal = true;
+                }
+                else{
+                    medal = false;
+                }
 			}
 			else if(store.typeGame===1){
 
@@ -183,12 +173,9 @@ var Evaluation = ({
 
 			}
 			console.log("Médaille : "+ medal)
-		
 		},
-
-		//evaluate reformat time for check global time
+		// Evaluate reformat time for check global time
 		globalTimeCalculate : function(intermediateTime){
-
 			var minutes = 0
 			var seconds = 0
 			var milliSeconds = 0
@@ -211,10 +198,10 @@ var Evaluation = ({
 			if(milliSeconds<100){
 				milliSeconds = 0 +milliSeconds
 			}
-			//to store and display time for user
+			// To store and display time for user
 			store.displayGlobalTime =  minutes + ":" + seconds +":"+ milliSeconds;
 			
-			//to store the time only in seconds
+			// To store the time only in seconds
 			statsTime = new Date(intermediateTime)			
 			minutes = statsTime.getMinutes()	
 			seconds = statsTime.getSeconds()
@@ -235,9 +222,9 @@ var Evaluation = ({
 			store.globalTimeResult = seconds;
 
 		},
-		//initiate operands for apprentice & evaluation game
+		// Initialize operands
 		randomOperands : function(){
-			//randomize question
+			// Randomize question
 			store.operandsArray = store.operands
 
 			var currentIndex = store.operandsArray.length, temporaryValue, randomIndex;
@@ -256,16 +243,14 @@ var Evaluation = ({
 			  }
 
 		},
-		//initiate tables for evaluation game
+		// Initialize random tables
 		randomTable : function(){
-
-			//randomize tabme
+			// Randomize tables
 			store.tableArray = store.table
 			var currentIndex = store.tableArray.length, temporaryValue, randomIndex;
 
-			  // While there remain elements to shuffle...
-			  while (0 !== currentIndex) {
-
+			// While there remain elements to shuffle...
+			while (0 !== currentIndex) {
 			    // Pick a remaining element...
 			    randomIndex = Math.floor(Math.random() * currentIndex);
 			    currentIndex -= 1;
@@ -274,12 +259,10 @@ var Evaluation = ({
 			    temporaryValue = store.tableArray[currentIndex];
 			    store.tableArray[currentIndex] = store.tableArray[randomIndex];
 			    store.tableArray[randomIndex] = temporaryValue;
-			  }
-
+			}
 		}
 	}
 });
-
 
 /*-----------------------
  | Evaluation game part |
@@ -293,10 +276,10 @@ var evaluationPart = {
 	},
 	methods : {	
         setVisible : function(visible){
-                var self = this
-                console.log("variable visible = "+visible);
-                store.displayEvaluation = visible;
-                console.log("Display : "+store.displayLearning)
+            var self = this
+            console.log("variable visible = "+visible);
+            store.displayEvaluation = visible;
+            console.log("Display : "+store.displayLearning)
 		},
 	},
 	computed:{

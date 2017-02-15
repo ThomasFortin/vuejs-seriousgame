@@ -25,7 +25,6 @@ var Learning = ({
 		},
         // Random method to select 10 operations for one table Apprentice part
 		oneTableCalculate : function(){
-			
 			console.log("Mode de jeu Apprentissage")
 			console.log("Table choisie : "+store.currentTable)
 
@@ -38,20 +37,18 @@ var Learning = ({
 			}
 
 			if(store.win==!true && store.trueAnswer<11){
-
-				//display template
+				// Display template
 				apprenticePart.methods.setVisible(true)
 		
-				//random question
+				// Asks a random question
 				store.currentOperand = store.operandsArray[store.questionNumber-1]	
 			}
         },
-		//stop Chrono
+		// Stop the chrono
 		stopChrono : function(){
 			clearInterval(store.timerID)
 		},
-
-		//counting results
+		// Counting the results
 		verifyingResult : function(){	
 			if(this.goodOrBad(arguments)){
 				store.succeed = true;
@@ -70,8 +67,7 @@ var Learning = ({
 			}
 			console.log(arguments[0]+"\n"+this.goodOrBad(arguments))			
 		},
-
-		//checking results
+		// Checking the number of good and bad answers
 		goodOrBad : function(arguments){
 			var succeed = false
 			var currentResult = store.currentOperand * store.currentTable
@@ -91,10 +87,8 @@ var Learning = ({
 			console.log("succeed : "+succeed)
 			return succeed
 		},
-
-		//counting time
+		// Calculate the time to do the exercise
 		calculateTime : function(){
-						
 			var minutes = 0
 			var seconds = 0
 			var milliSeconds = 0
@@ -131,10 +125,8 @@ var Learning = ({
 			console.log("Display intermediateTime ->"+store.displayIntermediateTime)
 				
 			}, 10)		
-				
 		},
-
-		//stats & rewards
+		// Stats & rewards
 		stats : function(){	
 			store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / (store.questionNumber-1) * 100)
 			console.log("% good answer = "+ store.statsAnswer+ "\n gold condition : "+ store.timeTable[store.currentTable].gold+"\n silver condition : "+store.timeTable[store.currentTable].silver+"\n bronze condition : "+timeTable[store.currentTable].bronze )
@@ -178,15 +170,11 @@ var Learning = ({
 					else{
 						medal = false;
 					}
-
 			}
 			console.log("Médaille : "+ medal)
-		
 		},
-
-		//evaluate reformat time for check global time
+		// Evaluate reformat time for check global time
 		globalTimeCalculate : function(intermediateTime){
-
 			var minutes = 0
 			var seconds = 0
 			var milliSeconds = 0
@@ -209,10 +197,10 @@ var Learning = ({
 			if(milliSeconds<100){
 				milliSeconds = 0 +milliSeconds
 			}
-			//to store and display time for user
+			// To store and display time for user
 			store.displayGlobalTime =  minutes + ":" + seconds +":"+ milliSeconds;
 			
-			//to store the time only in seconds
+			// To store the time only in seconds
 			statsTime = new Date(intermediateTime)			
 			minutes = statsTime.getMinutes()	
 			seconds = statsTime.getSeconds()
@@ -233,15 +221,15 @@ var Learning = ({
 			store.globalTimeResult = seconds;
 
 		},
-		//initiate operands for apprentice & evaluation game
+		// Initialize operands
 		randomOperands : function(){
-			//randomize question
+			// Randomize question
 			store.operandsArray = store.operands
 
 			var currentIndex = store.operandsArray.length, temporaryValue, randomIndex;
 
-			  // While there remain elements to shuffle...
-			  while (0 !== currentIndex) {
+			// While there remain elements to shuffle...
+			while (0 !== currentIndex) {
 
 			    // Pick a remaining element...
 			    randomIndex = Math.floor(Math.random() * currentIndex);
@@ -251,12 +239,10 @@ var Learning = ({
 			    temporaryValue = store.operandsArray[currentIndex];
 			    store.operandsArray[currentIndex] = store.operandsArray[randomIndex];
 			    store.operandsArray[randomIndex] = temporaryValue;
-			  }
-
+			}
 		},
     }
 });
-
 
 /*----------------------
  | Apprentice game part |
