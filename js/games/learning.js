@@ -24,9 +24,6 @@ var Learning = ({
 		},
         // Random method to select 10 operations for one table Apprentice part
 		oneTableCalculate : function(){
-			console.log("Mode de jeu Apprentissage")
-			console.log("Table choisie : "+store.currentTable)
-
 			if(store.trueAnswer===10){
 					store.apprenticeWin=true
 					store.succeed=""
@@ -34,7 +31,6 @@ var Learning = ({
 					apprenticePart.methods.setVisible(false)
 					this.stats()				
 			}
-
 			if(store.apprenticeWin==!true && store.trueAnswer<10){
 				// Display template
 				apprenticePart.methods.setVisible(true)
@@ -59,26 +55,18 @@ var Learning = ({
 				store.succeed=false
 				store.wrongAnswer++
 			}
-			console.log(arguments[0]+"\n"+this.goodOrBad(arguments))			
 		},
 		// Checking the number of good and bad answers
 		goodOrBad : function(arguments){
 			var succeed = false
-			var currentResult = store.currentOperand * store.currentTable
-
-			console.log("opération courante : "+ store.currentOperand+ " * "+ store.currentTable  +"\ncurrentResult = "+currentResult+" argument courant : "+ arguments[0])
-			
+			var currentResult = store.currentOperand * store.currentTable	
 
 			if(currentResult==arguments[0]){
 				succeed = true
-				console.log("Résultat de l'opération : "+succeed)
-
 			}
 			else{
 				succeed = false
-				console.log("Résultat de l'opération : "+succeed)
 			}
-			console.log("succeed : "+succeed)
 			return succeed
 		},
 		// Calculate the time to do the exercise
@@ -116,14 +104,12 @@ var Learning = ({
 
 			store.displayIntermediateTime = minutes + ":" + seconds +":"+ milliSeconds;
 			store.intermediateTime = currentIntermediateTime;
-			console.log("Display intermediateTime ->"+store.displayIntermediateTime)
 				
 			}, 10)		
 		},
 		// Stats & rewards
 		stats : function(){	
 			store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / (store.questionNumber-1) * 100)
-			console.log("% good answer = "+ store.statsAnswer+ "\n gold condition : "+ store.timeTable[store.currentTable].gold+"\n silver condition : "+store.timeTable[store.currentTable].silver+"\n bronze condition : "+timeTable[store.currentTable].bronze )
 			this.globalTimeCalculate(store.intermediateTime)
 			var medal = false;
 			if(store.statsAnswer<0){
@@ -145,7 +131,6 @@ var Learning = ({
             else{
                 medal = false;
             }
-			console.log("Médaille : "+ medal)
 		},
 		// Evaluate reformat time for check global time
 		globalTimeCalculate : function(intermediateTime){
@@ -204,7 +189,6 @@ var Learning = ({
 
 			// While there remain elements to shuffle...
 			while (0 !== currentIndex) {
-
 			    // Pick a remaining element...
 			    randomIndex = Math.floor(Math.random() * currentIndex);
 			    currentIndex -= 1;
@@ -231,9 +215,7 @@ var apprenticePart = {
 	methods : {
         setVisible : function(visible){
             var self = this
-            console.log("variable visible = "+visible);
             store.displayLearning = visible;
-            console.log("Display : "+store.displayLearning)
         },
     },
 	computed:{

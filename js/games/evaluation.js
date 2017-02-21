@@ -26,7 +26,6 @@ var Evaluation = ({
 		// Global table calculation
 		allTableCalculate : function(){
 
-			console.log("Mode de jeu Evaluation")
 			if(store.trueAnswer===10){
                 store.evaluationWin=true
                 store.succeed=""
@@ -61,25 +60,20 @@ var Evaluation = ({
 				store.succeed=false
 				store.wrongAnswer++
 			}
-			console.log(arguments[0]+"\n"+this.goodOrBad(arguments))			
 		},
 		// Checking the number of good and bad answers
 		goodOrBad : function(arguments){
 			var succeed = false
 			var currentResult = store.currentOperand * store.currentTable
 
-			console.log("opération courante : "+ store.currentOperand+ " * "+ store.currentTable  +"\ncurrentResult = "+currentResult+" argument courant : "+ arguments[0])
 			
 			if(currentResult==arguments[0]){
 				succeed = true
-				console.log("Résultat de l'opération : "+succeed)
 
 			}
 			else{
 				succeed = false
-				console.log("Résultat de l'opération : "+succeed)
 			}
-			console.log("succeed : "+succeed)
 			return succeed
 		},
 
@@ -116,14 +110,12 @@ var Evaluation = ({
 			}
 			store.displayIntermediateTime = minutes + ":" + seconds +":"+ milliSeconds;
 			store.intermediateTime = currentIntermediateTime;
-			console.log("Display intermediateTime ->"+store.displayIntermediateTime)
 				
 			}, 10)		
 		},
 		// Stats & rewards
 		stats : function(){
 			store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / (store.questionNumber-1) * 100)
-			console.log("% good answer = "+ store.statsAnswer+ "\n gold condition : "+ store.timeTable[store.currentTable].gold+"\n silver condition : "+store.timeTable[store.currentTable].silver+"\n bronze condition : "+timeTable[store.currentTable].bronze )
 			this.globalTimeCalculate(store.intermediateTime)
 			var medal = false;
 			if(store.statsAnswer<0){
@@ -144,7 +136,6 @@ var Evaluation = ({
                 else{
                     medal = false;
                 }
-			console.log("Médaille : "+ medal)
 		},
 		// Evaluate reformat time for check global time
 		globalTimeCalculate : function(intermediateTime){
@@ -249,9 +240,7 @@ var evaluationPart = {
 	methods : {	
         setVisible : function(visible){
             var self = this
-            console.log("variable visible = "+visible);
             store.displayEvaluation = visible;
-            console.log("Display : "+store.displayEvaluation)
 		},
 	},
 	computed:{
