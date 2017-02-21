@@ -25,7 +25,6 @@ var Evaluation = ({
 		},	
 		// Global table calculation
 		allTableCalculate : function(){
-
 			if(store.trueAnswer===10){
                 store.evaluationWin=true
                 store.succeed=""
@@ -65,11 +64,9 @@ var Evaluation = ({
 		goodOrBad : function(arguments){
 			var succeed = false
 			var currentResult = store.currentOperand * store.currentTable
-
 			
 			if(currentResult==arguments[0]){
 				succeed = true
-
 			}
 			else{
 				succeed = false
@@ -245,10 +242,29 @@ var evaluationPart = {
 	},
 	computed:{
 		possibleResults: function(){
+            /*
 			var resultTable = []
+            resultTable.push(store.currentOperand * store.currentTable)
+            if (store.currentOperand >=3 && store.currentOperand <= 7) {
+                for (i = 1; i < 3; i++) {
+                    resultTable.push((store.currentOperand + i) * store.currentTable)
+                    resultTable.push((store.currentOperand - i) * store.currentTable)
+                }
+            }
+			return resultTable
+            */
+			var resultTable = []
+            resultTable.push(store.currentOperand * store.currentTable)
 			store.operands.forEach(function(operand) {
-				resultTable.push(operand * store.currentTable)
+                if (resultTable.length < 4) {
+                    if (operand != store.currentOperand) {
+                        resultTable.push(operand * store.currentTable)
+                    }
+                }
 			});
+            // Randomize the possible result array
+            // To prevent the child from counting on his fingers
+            resultTable.sort(function(a, b){return 0.5 - Math.random()});
 			return resultTable
 		}
 	}
