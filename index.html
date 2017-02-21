@@ -85,15 +85,17 @@
                     <span v-if="store.succeed===false" class="answer wrong">Mauvaise réponse ! Essaie encore une fois !</span>
                 </div>
             </div>
-            <div id="apprentice-winner" v-if="store.apprenticeWin"><h2>Félicitations ! Tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h2>
+            <div id="apprentice-winner" v-if="store.apprenticeWin">
+                <h2>Félicitations ! Tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h2>
+                <router-link :to="{ name: 'home' }" class="btn-like">Accueil</router-link>
                 <h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2>
                 <h3>Voici ton temps : {{ store.displayGlobalTime }}</h3>
-                <h3>Temps global en seconde : {{ store.globalTimeResult }}</h3>
                 <div id="medal">
                     <img v-if="store.goldStar" src="images/goldStar.png"/>
                     <img v-if="store.silverStar" src="images/silverStar.png"/>
                     <img v-if="store.bronzeStar" src="images/bronzeStar.png"/>
                 </div>
+                <router-link :to="{ name: 'home' }" class="btn-like">Accueil</router-link>
             </div>
         </div>
 	</script>
@@ -127,16 +129,15 @@
             </div> 
             <div id="evaluation-winner" v-if="store.evaluationWin">
                 <h2>Félicitations ! Tu viens de terminer le jeu, essaie de faire encore mieux !</h2>
+                <router-link :to="{ name: 'home' }" class="btn-like">Accueil</router-link>
                 <h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2>
                 <h3>Voici ton temps : {{ store.displayGlobalTime }}</h3>
-                <h3>Temps global en seconde : {{ store.globalTimeResult }}</h3>
                 <div id="medal">
                     <img v-if="store.goldStar" src="images/goldStar.png"/>
                     <img v-if="store.silverStar" src="images/silverStar.png"/>
                     <img v-if="store.bronzeStar" src="images/bronzeStar.png"/>
                 </div>
             </div>
-
         </div>
     </script>
     <!-- LIBS -->
