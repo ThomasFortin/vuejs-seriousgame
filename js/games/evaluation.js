@@ -242,17 +242,6 @@ var evaluationPart = {
 	},
 	computed:{
 		possibleResults: function(){
-            /*
-			var resultTable = []
-            resultTable.push(store.currentOperand * store.currentTable)
-            if (store.currentOperand >=3 && store.currentOperand <= 7) {
-                for (i = 1; i < 3; i++) {
-                    resultTable.push((store.currentOperand + i) * store.currentTable)
-                    resultTable.push((store.currentOperand - i) * store.currentTable)
-                }
-            }
-			return resultTable
-            */
 			var resultTable = []
             resultTable.push(store.currentOperand * store.currentTable)
 			store.operands.forEach(function(operand) {
