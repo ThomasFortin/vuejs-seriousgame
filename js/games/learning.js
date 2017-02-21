@@ -220,19 +220,11 @@ var apprenticePart = {
     },
 	computed:{
 		possibleResults: function(){
-			var resultTable = []
-            resultTable.push(store.currentOperand * store.currentTable)
-			store.operands.forEach(function(operand) {
-                if (resultTable.length < 4) {
-                    if (operand != store.currentOperand) {
-                        resultTable.push(operand * store.currentTable)
-                    }
-                }
-			});
-            // Randomize the possible result array
-            // To prevent the child from counting on his fingers
-            resultTable.sort(function(a, b){return 0.5 - Math.random()});
-			return resultTable
+            var resultTable = []
+            store.operands.forEach(function(operand) {
+                resultTable.push(operand * store.currentTable)
+            });
+            return resultTable
 		}
 	}
 };
