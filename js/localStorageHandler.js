@@ -31,6 +31,7 @@ function setLocalStorage(col, data) {
 // Remove the local storage
 function removeLocalStorage() {
      localStorage.removeItem(LS_GLOBAL_NAME);
+     location.reload();
 }
 
 // Tell if the local storage exists
