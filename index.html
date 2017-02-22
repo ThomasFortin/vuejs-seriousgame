@@ -41,7 +41,7 @@
     <div class="home-view">
         <div class="learning-link">
             <p>
-                Entraine-toi et deviens le meilleur !
+                Entraîne-toi et deviens le meilleur !
             </p>
             <br />
             <router-link :to="{ name: 'learning' }" class="btn-like">Apprentissage</router-link>
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div id="apprentice-winner" v-if="store.apprenticeWin">
-                <h3>Félicitations ! Tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h3>
+                <h3>Félicitations ! Tu viens de terminer le jeu, tente ta chance avec une nouvelle table !</h3>
                 <router-link :to="{ name: 'home' }" class="btn-like">Accueil</router-link>
                 <h3>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h3>
                 <h3>Voici ton temps : {{ store.displayGlobalTime }}</h3>

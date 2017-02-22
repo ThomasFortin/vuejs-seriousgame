@@ -94,7 +94,7 @@ button, .btn-like {
     border: 1px solid #000;
     cursor: pointer;
     box-shadow: 0 0 25px 0 #CCC;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #FFF;
     font-family: "Main Font";
     font-size: 18px;
@@ -104,7 +104,7 @@ button, .btn-like {
 input {
     padding: 15px;
     margin: 20px 0;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 0 25px 0 #CCC;
 }
 
@@ -146,7 +146,7 @@ input {
 
 #propositions li {
     display: inline;
-    border-radius: 15px;
+    border-radius: 5px;
     margin: 10px 3px;
     padding: 20px 0;
     width: 18%;
@@ -167,6 +167,10 @@ input {
 
 .wrong {
     color: #e03131;
+}
+
+#medal img {
+    width: 300px;
 }
 
 #results {
