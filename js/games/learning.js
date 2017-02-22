@@ -30,6 +30,7 @@ var Learning = ({
 					this.stopChrono()
 					apprenticePart.methods.setVisible(false)
 					this.stats()				
+                    this.addInLocalStorage()
 			}
 			if(store.apprenticeWin==!true && store.trueAnswer<10){
 				// Display template
@@ -199,6 +200,14 @@ var Learning = ({
 			    store.operandsArray[randomIndex] = temporaryValue;
 			}
 		},
+        // Add in local storage
+        addInLocalStorage : function() {
+           setLocalStorage({
+               table : store.currentTable,
+               wrong : store.wrongAnswer,
+               chrono : store.globalTimeResult
+           });
+        }
     }
 });
 
@@ -224,6 +233,7 @@ var apprenticePart = {
             store.operands.forEach(function(operand) {
                 resultTable.push(operand * store.currentTable)
             });
+            resultTable.sort(function(a, b){return 0.5 - Math.round(Math.random())});
             return resultTable
 		}
 	}
