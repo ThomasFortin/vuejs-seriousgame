@@ -163,3 +163,20 @@ input {
 .wrong {
     color: #e03131;
 }
+
+#results {
+    width: 100%;
+}
+
+#results thead {
+    background-color: #0099CC;
+    color: #FFF;
+}
+
+#results td {
+    width: 33%;
+}
+
+#results tbody tr:nth-of-type(even) {
+    background-color: #E9E9E9;
+}

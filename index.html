@@ -24,6 +24,9 @@
                         <li>
                             <router-link :to="{ name: 'evaluation' }">Évaluation</router-link>
                         </li>
+                        <li>
+                            <router-link :to="{ name: 'results' }">Résultats</router-link>
+                        </li>
                     </ul>
                 </nav>
             </aside>
@@ -140,6 +143,45 @@
             </div>
         </div>
     </script>
+    <script id="results-template" type="text/x-template">
+<section>
+    <h2>Résultats</h2>
+    <div class="results-view">
+        <h3>Voyons ensemble tes résultats !</h3>
+        <br />
+        <div v-if="results == null">
+            <p>
+                Avant de voir tes résultats, il faut t'entraîner !
+            </p>
+            <br />
+            <router-link :to="{ name: 'learning' }" class="btn-like">M'entraîner</router-link>
+        </div>
+        <div v-else>
+            <p>
+                Ici sont marqués tous les résultats généraux de tes parties dans l'order de réalisation !
+            </p>
+            <button @click="removeLocalStorage">Effacer ces données !</button>
+            <table id="results">
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Mauvaises réponses</th>
+                        <th>Chrono réalisé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="result of results.training">
+                        <td>{{ result.table }}</td>
+                        <td>{{ result.wrong }}</td>
+                        <td>{{ result.chrono }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+    </script>
+
     <!-- LIBS -->
 
     <!-- External -->
@@ -152,6 +194,7 @@
     <script src="js/home.js"></script>
     <script src="js/games/learning.js"></script>
     <script src="js/games/evaluation.js"></script>
+    <script src="js/results.js"></script>
     <script src="js/routing.js"></script>
 </body>
 </html>

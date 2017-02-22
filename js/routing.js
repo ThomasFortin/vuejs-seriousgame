@@ -12,6 +12,7 @@ var router = new VueRouter({
         { path: '/', component: Home, name:'home' },
         { path: '/apprentissage', component: Learning, name:'learning' },
         { path: '/evaluation', component: Evaluation, name:'evaluation' },
+        { path: '/resultats', component: Results, name:'results' },
     ]
 });
 
