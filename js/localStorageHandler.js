@@ -1,6 +1,7 @@
 var LS_GLOBAL_NAME = "multiplicationsGame";
 var LS_TRAINING_COL = "training";
 
+// Init a new local storage
 function initLocalStorage() {
     var newStore = JSON.stringify({
         [LS_TRAINING_COL] : []
@@ -14,14 +15,14 @@ function getLocalStorage() {
     return JSON.parse(localStorage.getItem(LS_GLOBAL_NAME));
 }
 
-// Set the local storage for the given column
-function setLocalStorage(data) {
+// Set the local storage
+function setLocalStorage(col, data) {
     if (!localStorageExist()) {
         initLocalStorage();
     }
     console.log(data);
     var storage = getLocalStorage();
-    storage[LS_TRAINING_COL].push(data);
+    storage[col].push(data);
 
     var dataToStore = JSON.stringify(storage);
     localStorage.setItem(LS_GLOBAL_NAME, dataToStore);

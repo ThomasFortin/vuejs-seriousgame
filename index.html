@@ -98,7 +98,6 @@
                     <img v-if="store.silverStar" src="images/silverStar.png"/>
                     <img v-if="store.bronzeStar" src="images/bronzeStar.png"/>
                 </div>
-                <router-link :to="{ name: 'home' }" class="btn-like">Accueil</router-link>
             </div>
         </div>
 	</script>
@@ -173,7 +172,7 @@
                     <tr v-for="result of results.training">
                         <td>{{ result.table }}</td>
                         <td>{{ result.wrong }}</td>
-                        <td>{{ result.chrono }}</td>
+                        <td>{{ result.chrono }} sec.</td>
                     </tr>
                 </tbody>
             </table>

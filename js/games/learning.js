@@ -30,7 +30,7 @@ var Learning = ({
 					this.stopChrono()
 					apprenticePart.methods.setVisible(false)
 					this.stats()				
-                    this.addInLocalStorage()
+                    this.finished()
 			}
 			if(store.apprenticeWin==!true && store.trueAnswer<10){
 				// Display template
@@ -201,12 +201,13 @@ var Learning = ({
 			}
 		},
         // Add in local storage
-        addInLocalStorage : function() {
-           setLocalStorage({
+        finished : function() {
+           setLocalStorage(LS_TRAINING_COL, {
                table : store.currentTable,
                wrong : store.wrongAnswer,
                chrono : store.globalTimeResult
            });
+           store.evaluationWin = false;
         }
     }
 });
