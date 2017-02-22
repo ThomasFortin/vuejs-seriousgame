@@ -10,12 +10,12 @@
         <h1>Jeux éducatifs</h1>
     </header>
     <main>
-        <div id="app"> 
+        <div id="app">
             <aside>
                 <h2>Modes de jeu</h2>
                 <nav id="main-nav">
                     <ul>
-                        <li>    
+                        <li>
                             <router-link :to="{ name: 'home' }">Accueil</router-link>
                         </li>
                         <li>
@@ -33,7 +33,7 @@
             <router-view></router-view>
         </div>
     </main>
-    
+
     <!--Templates-->
     <script id="home-template" type="text/x-template">
 <section>
@@ -89,9 +89,9 @@
                 </div>
             </div>
             <div id="apprentice-winner" v-if="store.apprenticeWin">
-                <h2>Félicitations ! Tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h2>
+                <h3>Félicitations ! Tu viens de terminer le jeu, tente ta chance avec une nouvelle table!!</h3>
                 <router-link :to="{ name: 'home' }" class="btn-like">Accueil</router-link>
-                <h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2>
+                <h3>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h3>
                 <h3>Voici ton temps : {{ store.displayGlobalTime }}</h3>
                 <div id="medal">
                     <img v-if="store.goldStar" src="images/goldStar.png"/>
@@ -119,7 +119,7 @@
                 <span>Numéro de la question : {{ store.questionNumber }}</span>
                 <div id="formula">
                     {{ store.currentOperand }} *  {{ store.currentTable }} =
-                </div> 
+                </div>
                 <div id="resultDisplay">
                     <ul id="propositions">
                         <li v-for="result in possibleResults" @click.prevent="$emit('event', result)"> {{ result }}</li>
@@ -128,11 +128,11 @@
                     <span v-if="store.succeed" class="answer good">Bonne réponse !!!! T'es un champion !</span>
                     <span v-if="store.succeed===false" class="answer wrong">Mauvaise réponse ! Essaie encore une fois !</span>
                 </div>
-            </div> 
+            </div>
             <div id="evaluation-winner" v-if="store.evaluationWin">
-                <h2>Félicitations ! Tu viens de terminer le jeu, essaie de faire encore mieux !</h2>
+                <h3>Félicitations ! Tu viens de terminer le jeu, essaie de faire encore mieux !</h3>
                 <router-link :to="{ name: 'home' }" class="btn-like">Accueil</router-link>
-                <h2>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h2>
+                <h3>Ton score : {{ store.statsAnswer }} % de bonnes réponses...</h3>
                 <h3>Voici ton temps : {{ store.displayGlobalTime }}</h3>
                 <div id="medal">
                     <img v-if="store.goldStar" src="images/goldStar.png"/>
