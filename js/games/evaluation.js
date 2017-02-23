@@ -2,7 +2,8 @@ var Evaluation = ({
     template: `#evaluation-template`,
     data: function() {
         return {
-            store: store
+            store: store,
+            finished: getLocalStorage()
         }
     },
 	methods: {
@@ -17,12 +18,15 @@ var Evaluation = ({
 			store.globalTimeResult = 0
 			store.intermediateTime = 0
 			store.timerID = 0
+            goldStar : false
+            silverStar : false
+            bronzeStar : false
 			evaluationPart.methods.setVisible(true)
 			this.randomOperands()
 			this.randomTable()
 			this.allTableCalculate()
 			this.calculateTime()
-		},	
+		},
 		// Global table calculation
 		allTableCalculate : function(){
 			if(store.trueAnswer===10){
@@ -30,16 +34,16 @@ var Evaluation = ({
                 store.succeed=""
                 this.stopChrono()
                 evaluationPart.methods.setVisible(false)
-                this.stats()	
+                this.stats()
 			}
 
 			if(store.evaluationWin==!true && store.trueAnswer<10){
 				// Display the template
 				evaluationPart.methods.setVisible(true)
-		
+
 				// Asks a random question
 				store.currentOperand = store.operandsArray[store.questionNumber-1]
-				store.currentTable = store.tableArray[store.questionNumber-1]	
+				store.currentTable = store.tableArray[store.questionNumber-1]
 			}
 
 		},
@@ -48,11 +52,11 @@ var Evaluation = ({
 			clearInterval(store.timerID)
 		},
 		// Counting the results
-		verifyingResult : function(){	
+		verifyingResult : function(){
 			if(this.goodOrBad(arguments)){
 				store.succeed = true;
 				store.questionNumber++;
-				store.trueAnswer++;	
+				store.trueAnswer++;
 				this.allTableCalculate();
 			}
 			else{
@@ -64,7 +68,7 @@ var Evaluation = ({
 		goodOrBad : function(arguments){
 			var succeed = false
 			var currentResult = store.currentOperand * store.currentTable
-			
+
 			if(currentResult==arguments[0]){
 				succeed = true
 			}
@@ -88,11 +92,11 @@ var Evaluation = ({
 			var end = new Date()
 			currentIntermediateTime = end - start
 			currentIntermediateTime = new Date(currentIntermediateTime)
-			
+
 			minutes = currentIntermediateTime.getMinutes()
 			seconds = currentIntermediateTime.getSeconds()
 			milliSeconds = currentIntermediateTime.getMilliseconds()
-			
+
 			if(minutes<10){
 				minutes = 0 + minutes
 			}
@@ -107,8 +111,8 @@ var Evaluation = ({
 			}
 			store.displayIntermediateTime = minutes + ":" + seconds +":"+ milliSeconds;
 			store.intermediateTime = currentIntermediateTime;
-				
-			}, 10)		
+
+			}, 10)
 		},
 		// Stats & rewards
 		stats : function(){
@@ -140,12 +144,12 @@ var Evaluation = ({
 			var seconds = 0
 			var milliSeconds = 0
 
-			currentIntermediateTime = new Date(intermediateTime)			
+			currentIntermediateTime = new Date(intermediateTime)
 
 			minutes = currentIntermediateTime.getMinutes()
 			seconds = currentIntermediateTime.getSeconds()
 			milliSeconds = currentIntermediateTime.getMilliseconds()
-			
+
 			if(minutes<10){
 				minutes = 0 + minutes
 			}
@@ -160,13 +164,13 @@ var Evaluation = ({
 			}
 			// To store and display time for user
 			store.displayGlobalTime =  minutes + ":" + seconds +":"+ milliSeconds;
-			
+
 			// To store the time only in seconds
-			statsTime = new Date(intermediateTime)			
-			minutes = statsTime.getMinutes()	
+			statsTime = new Date(intermediateTime)
+			minutes = statsTime.getMinutes()
 			seconds = statsTime.getSeconds()
 			milliSeconds = statsTime.getMilliseconds()
-			
+
 			if(minutes<10){
 				seconds = seconds + (minutes * 60)
 			}
@@ -230,11 +234,11 @@ var Evaluation = ({
 var evaluationPart = {
 	template : `#evaluationPart`,
 	data : function(){
-		return { 
-			store : store,						
+		return {
+			store : store,
 		};
 	},
-	methods : {	
+	methods : {
         setVisible : function(visible){
             var self = this
             store.displayEvaluation = visible;

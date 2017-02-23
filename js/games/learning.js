@@ -17,6 +17,9 @@ var Learning = ({
 			store.globalTimeResult = 0
 			store.intermediateTime = 0
 			store.timerID = 0
+            goldStar : false
+            silverStar : false
+            bronzeStar : false
 			apprenticePart.methods.setVisible(true)
 			this.randomOperands()
 			this.oneTableCalculate()
@@ -29,13 +32,13 @@ var Learning = ({
 					store.succeed=""
 					this.stopChrono()
 					apprenticePart.methods.setVisible(false)
-					this.stats()				
+					this.stats()
                     this.finished()
 			}
 			if(store.apprenticeWin==!true && store.trueAnswer<10){
 				// Display template
 				apprenticePart.methods.setVisible(true)
-		
+
 				// Asks a random question
 				store.currentOperand = store.operandsArray[store.questionNumber-1]
 			}
@@ -45,7 +48,7 @@ var Learning = ({
 			clearInterval(store.timerID)
 		},
 		// Counting the results
-		verifyingResult : function(){	
+		verifyingResult : function(){
 			if(this.goodOrBad(arguments)){
 				store.succeed = true;
 				store.questionNumber++;
@@ -60,7 +63,7 @@ var Learning = ({
 		// Checking the number of good and bad answers
 		goodOrBad : function(arguments){
 			var succeed = false
-			var currentResult = store.currentOperand * store.currentTable	
+			var currentResult = store.currentOperand * store.currentTable
 
 			if(currentResult==arguments[0]){
 				succeed = true
@@ -85,11 +88,11 @@ var Learning = ({
 			currentIntermediateTime = end - start
 			currentIntermediateTime = new Date(currentIntermediateTime)
 
-			
+
 			minutes = currentIntermediateTime.getMinutes()
 			seconds = currentIntermediateTime.getSeconds()
 			milliSeconds = currentIntermediateTime.getMilliseconds()
-			
+
 			if(minutes<10){
 				minutes = 0 + minutes
 			}
@@ -105,11 +108,11 @@ var Learning = ({
 
 			store.displayIntermediateTime = minutes + ":" + seconds +":"+ milliSeconds;
 			store.intermediateTime = currentIntermediateTime;
-				
-			}, 10)		
+
+			}, 10)
 		},
 		// Stats & rewards
-		stats : function(){	
+		stats : function(){
 			store.statsAnswer = Math.round((store.trueAnswer - store.wrongAnswer) / (store.questionNumber-1) * 100)
 			this.globalTimeCalculate(store.intermediateTime)
 			var medal = false;
@@ -139,12 +142,12 @@ var Learning = ({
 			var seconds = 0
 			var milliSeconds = 0
 
-			currentIntermediateTime = new Date(intermediateTime)			
+			currentIntermediateTime = new Date(intermediateTime)
 
 			minutes = currentIntermediateTime.getMinutes()
 			seconds = currentIntermediateTime.getSeconds()
 			milliSeconds = currentIntermediateTime.getMilliseconds()
-			
+
 			if(minutes<10){
 				minutes = 0 + minutes
 			}
@@ -159,13 +162,13 @@ var Learning = ({
 			}
 			// To store and display time for user
 			store.displayGlobalTime =  minutes + ":" + seconds +":"+ milliSeconds;
-			
+
 			// To store the time only in seconds
-			statsTime = new Date(intermediateTime)			
-			minutes = statsTime.getMinutes()	
+			statsTime = new Date(intermediateTime)
+			minutes = statsTime.getMinutes()
 			seconds = statsTime.getSeconds()
 			milliSeconds = statsTime.getMilliseconds()
-			
+
 			if(minutes<10){
 				seconds = seconds + (minutes * 60)
 			}
@@ -207,7 +210,6 @@ var Learning = ({
                wrong : store.wrongAnswer,
                chrono : store.globalTimeResult
            });
-           store.evaluationWin = false;
         }
     }
 });
@@ -218,8 +220,8 @@ var Learning = ({
 var apprenticePart = {
 	template : `#apprenticePart`,
 	data : function(){
-		return { 
-			store : store,			
+		return {
+			store : store,
 		};
 	},
 	methods : {
