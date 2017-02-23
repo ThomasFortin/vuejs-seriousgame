@@ -207,9 +207,9 @@ var Learning = ({
         // Add in local storage
         finished : function() {
            setLocalStorage(LS_TRAINING_COL, {
-               table : store.currentTable,
-               wrong : store.wrongAnswer,
-               chrono : store.globalTimeResult
+                table : store.currentTable,
+                wrong : store.wrongAnswer,
+                chrono : store.globalTimeResult,
            });
         }
     }

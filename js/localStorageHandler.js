@@ -30,13 +30,13 @@ function setLocalStorage(col, data) {
 
     // Check if the played table has already been played
     var isTablePresent = false;
-    for (var table in storage[LS_FINISHED_TABLES_COL]) {
+    for (var table of storage[LS_FINISHED_TABLES_COL]) {
         if (table == data.table) {
             isTablePresent = true;
             break;
         }
     }
-    // If not, we had it in the finished tables column
+    // If not, we add it in the finished tables column
     if (!isTablePresent) {
         storage[LS_FINISHED_TABLES_COL].push(data.table);
     }
