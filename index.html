@@ -105,7 +105,7 @@
         <section>
             <h2>Évaluation</h2>
             <div id="evaluation-module">
-                <div id="selection-part" v-if="storage.finished.length == 10">
+                <div id="selection-part" v-if="storage != null && storage.finished.length == 10">
                     <span>Il semblerait que tu te sois déjà entraîné sur toutes les tables.. tu as donc maintenant droit au mode évaluation !</span><br />
                     <span>Lance la partie dès que t'es prêt ! :-)</span><br />
                     <button @click="initGameEvaluation">Lancer le jeu !</button>
