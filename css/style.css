@@ -108,25 +108,25 @@ input {
     box-shadow: 0 0 25px 0 #CCC;
 }
 
-/* HOME */
+/* HOME // RESULTS */
 
-.home-view {
+.home-view, .evaluation-not-ready-view {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
 }
 
-.learning-link {
+.home-view > div:nth-of-type(1), .evaluation-no-ready-view > div:nth-of-type(1) {
     border-right: 1px solid #CCC;
 }
 
-.home-view > * {
+.home-view > *, .evaluation-not-ready-view > * {
     width: 49%;
     display: flex;
     flex-flow: column;
 }
 
-.home-view > * > p {
+.home-view > * > p, .evaluation-not-ready-view > * > p {
     margin: 20px;
     flex: 1;
 }
@@ -189,3 +189,14 @@ input {
 #results tbody tr:nth-of-type(even) {
     background-color: #E9E9E9;
 }
+
+#results-finished {
+    height: 100px;
+    line-height: 40px;
+}
+
+#results-finished .btn-like {
+    cursor: default;
+    margin: 5px;
+}
+

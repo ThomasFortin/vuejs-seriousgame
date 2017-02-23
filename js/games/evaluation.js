@@ -3,7 +3,7 @@ var Evaluation = ({
     data: function() {
         return {
             store: store,
-            finished: getLocalStorage()
+            storage: getLocalStorage()
         }
     },
 	methods: {

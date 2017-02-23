@@ -105,10 +105,33 @@
         <section>
             <h2>Évaluation</h2>
             <div id="evaluation-module">
-                <div id="selection-part">
-                    <span>Lance la partie dès que t'es prêt ! :)</span><br />
+                <div id="selection-part" v-if="storage.finished.length == 10">
+                    <span>Il semblerait que tu te sois déjà entraîné sur toutes les tables.. tu as donc maintenant droit au mode évaluation !</span><br />
+                    <span>Lance la partie dès que t'es prêt ! :-)</span><br />
                     <button @click="initGameEvaluation">Lancer le jeu !</button>
                     <evaluation-part @event="verifyingResult"></evaluation-part>
+                </div>
+                <div v-else>
+                    <p>
+                        Hop hop hop ! Pas si vite !
+                        <br />
+                        Si tu veux pouvoir t'évaluer, il faut d'abord t'entraîner sur toutes les tables ! :-)
+                    </p>
+                    <br />
+                    <div class="evaluation-not-ready-view">
+                        <div class="results-link">
+                            <p>
+                                Si tu ne sais plus où tu en es, consulte tes résultats !
+                            </p>
+                            <router-link :to="{ name: 'results' }" class="btn-like">Voir mes résultats</router-link>
+                        </div>
+                        <div class="learning-link">
+                            <p>
+                                Ou alors, repars directement à l'entraînement !
+                            </p>
+                            <router-link :to="{ name: 'learning' }" class="btn-like">Continuer de m'entraîner</router-link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -160,6 +183,13 @@
                 Ici sont marqués tous les résultats généraux de tes parties dans l'order de réalisation !
             </p>
             <button @click="removeLocalStorage">Effacer ces données !</button>
+            <hr />
+            <p id="results-finished">
+                <span>Tables déjà terminées : </span>
+                <br />
+                <span v-for="table of results.finished" class="btn-like">{{ table }}</span>
+            </p>
+            <hr />
             <table id="results">
                 <thead>
                     <tr>

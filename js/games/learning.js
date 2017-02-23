@@ -16,6 +16,7 @@ var Learning = ({
 			store.statsAnswer = 0
 			store.globalTimeResult = 0
 			store.intermediateTime = 0
+            chrono : null,
 			store.timerID = 0
             goldStar : false
             silverStar : false
